@@ -9,7 +9,16 @@ public class TokenRequest {
     private String serialNumber;
     private String macAddress;
 
-    public TokenRequest(String deviceName, Date creationDate, String serialNumber, String macAddress) {
+    /**
+     * Default constructor with params.
+     * @author d3sd1
+     * @param deviceName The name of the device.
+     * @param creationDate The creation date of the token.
+     * @param serialNumber Token SN.
+     * @param macAddress Associated MAC address.
+     */
+    public TokenRequest(String deviceName, Date creationDate,
+                        String serialNumber, String macAddress) {
         this.deviceName = deviceName;
         this.requestDate = creationDate;
         this.serialNumber = serialNumber;
@@ -18,7 +27,8 @@ public class TokenRequest {
 
     @Override
     public String toString() {
-        return "TokenRequest [\\n\\Device Name=" + this.deviceName + ",\n\t\\Request Date=" + this.requestDate + ",\n\t\\Serial Number="
+        return "TokenRequest [\\n\\Device Name=" + this.deviceName
+                + ",\n\t\\Request Date=" + this.requestDate + ",\n\t\\Serial Number="
                 + this.serialNumber + ",\n\t\\MAC Address=" + this.macAddress + "\n]";
     }
 }

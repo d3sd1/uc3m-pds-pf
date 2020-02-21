@@ -16,7 +16,13 @@ import javax.json.JsonObject;
 
 public class TokenManager {
 
-
+    /**
+     * Read token from json.
+     * @author d3sd1
+     * @param path - Physical path to token
+     * @return TokenRequest Object
+     * @throws TokenManagementException When file is not available.
+     */
     public TokenRequest readTokenRequestFromJson(String path) throws TokenManagementException {
         TokenRequest req = null;
 
