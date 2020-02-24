@@ -1,7 +1,7 @@
 package transport4future.tokenManagement;
 
 import java.util.Date;
-//r1
+
 public class TokenRequest {
 
     private String deviceName;
