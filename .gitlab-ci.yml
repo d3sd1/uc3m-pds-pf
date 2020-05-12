@@ -1,3 +1,4 @@
+#CI
 image: maven:latest
 
 variables:
