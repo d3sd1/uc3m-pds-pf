@@ -4,10 +4,14 @@
 
 
 **Requisitos proyecto**:
-- **Java 12**.
+- **Java (8+)**.
 - **Maven**.
 
-**Normativas de código**:
+**Extras**:
 
-Se pueden encontrar las normativas de código (equivalentes al fichero 'Normativa de codigo.pdf') en el documento docs/memoria1.pdf.
-El fichero equivalente a 'Normativa de cóodigo.xml' puede encontrarse en src/main/java/resources/checkstyle.xml
+- El jar compilado se sube a maven repository automáticmanete mediante TravisCI. Se puede descargar desde el siguiente enlace:
+- El jar también se sube al repositorio bajo la carpeta /artifacts, con el número de versión, de manera automática con TravisCI.
+- El jar tiene una versión automática 
+- Las integraciones de TravisCI se han realizado en el fichero .travis.yml.
+- Se han añadido entornos Maven, con configuraciones propias bajo src/main/resources/environment.{}.properties
+- Por defecto se activara el entorno test
