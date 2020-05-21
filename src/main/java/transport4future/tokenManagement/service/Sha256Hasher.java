@@ -13,6 +13,7 @@
 
 package Transport4Future.TokenManagement.service;
 
+import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import Transport4Future.TokenManagement.model.skeleton.Hasher;
 
 import java.math.BigInteger;
@@ -22,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * The type Hash manager.
- * Follows Strategy pattern.
+ * Follows Strategy pattern on Codificator basis.
  */
 public class Sha256Hasher implements Hasher<String> {
 
@@ -39,12 +40,6 @@ public class Sha256Hasher implements Hasher<String> {
         md.update(dataToSign.getBytes(StandardCharsets.UTF_8));
         return md.digest();
     }
-
-    //@Override
-    public String decode(byte[] toDecode) throws NoSuchAlgorithmException {
-        return null; // TODO
-    }
-
     /**
      * Gets sha 256 hex.
      *

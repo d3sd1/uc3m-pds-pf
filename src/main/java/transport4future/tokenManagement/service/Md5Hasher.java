@@ -13,6 +13,7 @@
 
 package Transport4Future.TokenManagement.service;
 
+import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import Transport4Future.TokenManagement.model.skeleton.Hasher;
 
 import java.math.BigInteger;
@@ -22,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * The type Hash manager.
- * Follows Strategy pattern.
+ * Follows Strategy pattern for Codificator basis.
  */
 public class Md5Hasher implements Hasher<String> {
     /**
@@ -39,11 +40,6 @@ public class Md5Hasher implements Hasher<String> {
         String input = "Stardust" + "-" + toEncode;
         md.update(input.getBytes(StandardCharsets.UTF_8));
         return md.digest();
-    }
-
-    //@Override
-    public String decode(byte[] toDecode) throws NoSuchAlgorithmException {
-        return null; // TODO
     }
 
     /**

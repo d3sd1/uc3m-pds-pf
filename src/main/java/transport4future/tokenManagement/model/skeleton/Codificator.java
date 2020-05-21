@@ -3,10 +3,10 @@ package Transport4Future.TokenManagement.model.skeleton;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Strategy base file for encoding.
- * We can't decode since when we hash, it is only a one-way algorithm.
+ * Strategy base file for encoding-decoding.
+ * As two way algorithm, we face that Hasher is only one-way, and Codificator is double-way.
  */
-public interface Hasher<T> {
+public interface Codificator<T> {
     /**
      *
      * @param toEncode
@@ -14,10 +14,12 @@ public interface Hasher<T> {
      * @throws NoSuchAlgorithmException
      */
     public byte[] encode(T toEncode) throws NoSuchAlgorithmException;
+
     /**
      *
-     * @param encodedData
+     * @param toDecode
      * @return
+     * @throws NoSuchAlgorithmException
      */
-    public String hex(byte[] encodedData);
+    public T decode(String toDecode) throws NoSuchAlgorithmException;
 }

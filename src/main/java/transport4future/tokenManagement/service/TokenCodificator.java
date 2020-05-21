@@ -14,23 +14,19 @@
 package Transport4Future.TokenManagement.service;
 
 import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.skeleton.Hasher;
+import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import javax.crypto.spec.PSource;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * The type Hash manager.
- * Follows Strategy pattern.
+ * Token encoder and decoder.
+ * Follows Strategy pattern on Codificator basis.
  */
-public class TokenHasher implements Hasher<Token> {
+public class TokenCodificator implements Codificator<Token> {
 
     /**
      * Sha 256 encode byte [ ].
@@ -48,16 +44,5 @@ public class TokenHasher implements Hasher<Token> {
     public Token decode(String base64) throws NoSuchAlgorithmException {
         Gson gson = new Gson();
         return gson.fromJson(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8), Token.class);
-    }
-
-    /**
-     * Gets sha 256 hex.
-     *
-     * @param sha256 the sha 256
-     * @return the sha 256 hex
-     */
-    @Override
-    public String hex(byte[] sha256) {
-        return String.format("%064x", new BigInteger(1, sha256));
     }
 }

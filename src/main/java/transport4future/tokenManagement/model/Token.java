@@ -14,13 +14,9 @@
 package Transport4Future.TokenManagement.model;
 
 import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.model.skeleton.Hasher;
-import Transport4Future.TokenManagement.service.Sha256Hasher;
 
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 

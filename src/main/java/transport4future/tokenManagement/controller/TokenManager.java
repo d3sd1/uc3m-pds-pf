@@ -19,8 +19,7 @@ import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.*;
 import Transport4Future.TokenManagement.model.skeleton.TokenManagerInterface;
 import Transport4Future.TokenManagement.service.FileManager;
-import Transport4Future.TokenManagement.service.TokenHasher;
-import com.google.gson.Gson;
+import Transport4Future.TokenManagement.service.TokenCodificator;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 
@@ -28,8 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Base64;
 
 
 /**
@@ -122,7 +119,7 @@ public class TokenManager implements TokenManagerInterface {
         }
 
         tokenRequestsStore.isRequestRegistered(token);
-        TokenHasher tokenHasher = new TokenHasher();
+        TokenCodificator tokenHasher = new TokenCodificator();
 
         String hashedToken;
         try {
@@ -150,7 +147,7 @@ public class TokenManager implements TokenManagerInterface {
      */
     public boolean VerifyToken(String base64EncodedToken) throws TokenManagementException {
 
-        TokenHasher tokenHasher = new TokenHasher();
+        TokenCodificator tokenHasher = new TokenCodificator();
         Token decodedToken;
         try {
             decodedToken = tokenHasher.decode(base64EncodedToken);
@@ -170,7 +167,7 @@ public class TokenManager implements TokenManagerInterface {
 
         FileManager fileManager = new FileManager();
         TokenRevoke tokenRevoke;
-        TokenHasher tokenHasher = new TokenHasher();
+        TokenCodificator tokenHasher = new TokenCodificator();
         Token decodedToken;
         //TODO: el typeadapter!
         try {
@@ -200,7 +197,7 @@ public class TokenManager implements TokenManagerInterface {
 
         FileManager fileManager = new FileManager();
         TokenExecuteAction tokenExecuteAction;
-        TokenHasher tokenHasher = new TokenHasher();
+        TokenCodificator tokenHasher = new TokenCodificator();
         Token decodedToken;
         //TODO: el tupeadapter!
         try {

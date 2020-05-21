@@ -19,7 +19,6 @@ import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.skeleton.Database;
 import Transport4Future.TokenManagement.service.FileManager;
-import Transport4Future.TokenManagement.service.TokenHasher;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
