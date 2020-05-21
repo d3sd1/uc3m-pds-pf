@@ -24,14 +24,15 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * The type Token database.
  */
-public class TokensStore extends Database<List<Token>, Token> {
+public class TokensStore extends Database<Token> {
     /**
-     * The constant database.
+     * Singleton instance.
      */
     protected static TokensStore database;
     /**
@@ -40,35 +41,42 @@ public class TokensStore extends Database<List<Token>, Token> {
     protected static List<Token> inMemoryDb;
 
     /**
-     *
+     * Private instantiation, so they must implement this as singleton.
      */
     private TokensStore() {
         super();
+    }
+
+    /**
+     * Init database requirements, and instantiate it.
+     *
+     */
+    @Override
+    protected void initDatabase() {
         try {
             FileManager fileManager = new FileManager();
             fileManager.createJsonFileIfNotExists(Constants.TOKEN_STORAGE_FILE, new ArrayList<>());
-            this.reload();
+            database.reload();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     /**
-     * Gets instance.
-     *
-     * @return the instance
+     * This returns a singleton instance from TokenRequestsStore.
+     * @return TokenManager singleton instance.
      */
     public static TokensStore getInstance() {
         if (database == null) {
             database = new TokensStore();
+            database.initDatabase();
         }
         return database;
     }
 
     /**
-     *
-     * @param newToken
-     * @throws TokenManagementException
+     * Adds a token to database.
+     * @param newToken Token to add to database.
+     * @throws TokenManagementException If there was any issue on the add operation.
      */
     @Override
     public void add(Token newToken) throws TokenManagementException {
@@ -79,8 +87,8 @@ public class TokensStore extends Database<List<Token>, Token> {
     }
 
     /**
-     *
-     * @throws TokenManagementException
+     * Flush the database with current values.
+     * @throws TokenManagementException If there was any issue flushing the database.
      */
     @Override
     protected void save() throws TokenManagementException {
@@ -94,6 +102,11 @@ public class TokensStore extends Database<List<Token>, Token> {
         }
     }
 
+    /**
+     * Attempts to find any token on database.
+     * @param tokenToFind Token to find on database.
+     * @return Found token, either null.
+     */
     public Token find(Token tokenToFind) {
         Token result = null;
         for (Token token : inMemoryDb) {
@@ -105,7 +118,8 @@ public class TokensStore extends Database<List<Token>, Token> {
     }
 
     /**
-     *
+     * Refresh database.
+     * @throws TokenManagementException When there is any error related to that refresh.
      */
     @Override
     protected void reload() {
@@ -121,12 +135,12 @@ public class TokensStore extends Database<List<Token>, Token> {
     }
 
     /**
-     *
-     * @return
-     * @throws CloneNotSupportedException
+     * Prevents current object being cloned, so follow singleton pattern.
+     * @return Never returns anything.
+     * @throws CloneNotSupportedException Throwed always.
      */
     @Override
-    public TokenManager clone() throws CloneNotSupportedException {
+    public TokensStore clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
 }

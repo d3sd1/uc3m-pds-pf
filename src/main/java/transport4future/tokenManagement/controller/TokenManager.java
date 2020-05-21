@@ -33,12 +33,22 @@ import java.security.NoSuchAlgorithmException;
  * This class manages tokens, so it's purely a controller that handles actions on Tokens.
  */
 public class TokenManager implements TokenManagerInterface {
+    /**
+     * Singleton instance.
+     */
     private static TokenManager instance;
 
+    /**
+     * Private constructor due to Singleton instantiation.
+     */
     private TokenManager() {
         super();
     }
 
+    /**
+     * This returns a singleton instance from TokenManager.
+     * @return TokenManager singleton instance.
+     */
     public static TokenManager getInstance() {
         if (instance == null) {
             instance = new TokenManager();
@@ -47,16 +57,12 @@ public class TokenManager implements TokenManagerInterface {
     }
 
     /**
-     * This class generates a TokenRequest, that will be use to
-     *
-     * NOTE: Gettting exception "JsonSyntaxException" means deserializers got an exception,
-     * that we poreviously configured the message, so we convert it to TokenManagementException and throw it,
-     * since we cannot throw TokenManagementException from deserializers due to Gson issues.
-     * @param inputFile File path to retrieve a valid RequestToken file. If not valid, see @throws.
-     * @return tokenRequest HEX code, if request went success.
-     * @throws TokenManagementException with specific message based on cases.
-     * @throws TokenManagementException nested, from other project sides instead catching 'em.
+     * This function requests a TokenRequest, that will be needed to operate with methods.
+     * @param inputFile Input file path.
+     * @return String with tokenRequest Hex.
+     * @throws TokenManagementException Is thrown with a descriptive message.
      */
+    @Override
     public String TokenRequestGeneration(String inputFile) throws TokenManagementException {
         TokenRequest tokenRequest;
         String hex;
@@ -69,10 +75,7 @@ public class TokenManager implements TokenManagerInterface {
             throw new TokenManagementException(e.getMessage());
         } catch (FileNotFoundException e) {
             throw new TokenManagementException("Error: input file not found.");
-        } catch (MalformedJsonException e) {
-            throw new TokenManagementException("Error: JSON object cannot be created due to incorrect representation");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new TokenManagementException("Error: JSON object cannot be created due to incorrect representation");
         } catch (NullPointerException e) {
             throw new TokenManagementException("Error: invalid input data in JSON structure.");
@@ -92,16 +95,12 @@ public class TokenManager implements TokenManagerInterface {
     }
 
     /**
-     * This method requests a token to access api after getting the tokenRequest.
-     * NOTE: Gettting exception "JsonSyntaxException" means deserializers got an exception,
-     * that we poreviously configured the message, so we convert it to TokenManagementException and throw it,
-     * since we cannot throw TokenManagementException from deserializers due to Gson issues.
-     *
-     * @param inputFile File path to retrieve a valid Token file. If not valid, see @throws.
-     * @return Encoded token value.
-     * @throws TokenManagementException with specific message based on cases.
-     * @throws TokenManagementException nested, from other project sides instead catching 'em.
+     * This function requests a token based on previous TokenRequest operation.
+     * @param inputFile Input file path.
+     * @return String with hashed token.
+     * @throws TokenManagementException Is thrown with a descriptive message.
      */
+    @Override
     public String RequestToken(String inputFile) throws TokenManagementException {
         Token token = null;
         FileManager fileManager = new FileManager();
@@ -136,15 +135,12 @@ public class TokenManager implements TokenManagerInterface {
 
 
     /**
-     * This method verifies that a token is valid, not expired and stored in database.
-     *
-     * NOTE: Gettting exception "JsonSyntaxException" means deserializers got an exception,
-     * that we poreviously configured the message, so we convert it to TokenManagementException and throw it,
-     * since we cannot throw TokenManagementException from deserializers due to Gson issues.
-     * @return Wetter is valid or not.
-     * @return Wetter is valid or not.
-     * @throws TokenManagementException If there is a crash during the verification.
+     * This function verifies if a base64token is valid.
+     * @param base64EncodedToken Base 64 encoded json token.
+     * @return Boolean marking if the action was (or not) success.
+     * @throws TokenManagementException Is thrown with a descriptive message.
      */
+    @Override
     public boolean VerifyToken(String base64EncodedToken) throws TokenManagementException {
 
         TokenCodificator tokenHasher = new TokenCodificator();
@@ -162,6 +158,12 @@ public class TokenManager implements TokenManagerInterface {
         return false;
     }
 
+    /**
+     * This function revokes token access to a non-expired and non-revoked already token.
+     * @param inputFile Input file path.
+     * @return String with email of the token that was updated.
+     * @throws TokenManagementException Is thrown with a descriptive message.
+     */
     @Override
     public String RevokeToken(String inputFile) throws TokenManagementException {
 
@@ -192,6 +194,12 @@ public class TokenManager implements TokenManagerInterface {
         return decodedToken.getNotificationEmail();
     }
 
+    /**
+     * This function executes an action on a car given it's token.
+     * @param inputFile Input file path.
+     * @return Boolean marking if the action was (or not) success.
+     * @throws TokenManagementException Is thrown with a descriptive message.
+     */
     @Override
     public boolean ExecuteAction(String inputFile) throws TokenManagementException {
 
@@ -229,6 +237,11 @@ public class TokenManager implements TokenManagerInterface {
         return executedSuccess;
     }
 
+    /**
+     * Prevents current object being cloned, so follow singleton pattern.
+     * @return Never returns anything.
+     * @throws CloneNotSupportedException Throwed always.
+     */
     @Override
     public TokenManager clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();

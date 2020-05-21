@@ -33,8 +33,8 @@ public class JsonManager {
     /**
      * Encode a object to json.
      *
-     * @param obj The object to encode.
      * @param <T> The TypeToken reflection class that is the object class.
+     * @param obj The object to encode.
      * @return JSON string.
      */
     public <T> String encode(T obj) {
@@ -46,9 +46,9 @@ public class JsonManager {
     /**
      * Decode json to object.
      *
+     * @param <T>              The TypeToken reflection class that is the object class.
      * @param json             JSON string.
      * @param deserializeClass Class to reflect.
-     * @param <T>              The TypeToken reflection class that is the object class.
      * @return Reflected object.
      */
     public <T> T decode(String json, Class<T> deserializeClass) {
@@ -58,9 +58,9 @@ public class JsonManager {
     /**
      * Decode json to object.
      *
+     * @param <T>  The TypeToken reflection class that is the object class.
      * @param json JSON string.
      * @param type Type class to reflect.
-     * @param <T>  The TypeToken reflection class that is the object class.
      * @return Reflected object.
      */
     public <T> T decode(String json, Type type) {

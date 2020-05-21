@@ -1,0 +1,18 @@
+{
+  "57659bb0978d410b3b78a892c604ccb4": {
+    "Device Name": "CAN BUS",
+    "Type of Device": "Actuator",
+    "Driver Version": "2020.03.01",
+    "Support e-mail": "autonomous@vehicle.com",
+    "Serial Number": "3423-432-423",
+    "MAC Address": "3D:F2:C9:A6:B3:4F"
+  },
+  "63cfcfd7480a166a541aef60923b9659": {
+    "Device Name": "LIDAR",
+    "Type of Device": "Sensor",
+    "Driver Version": "2020.03.01",
+    "Support e-mail": "autonomous@vehicle.com",
+    "Serial Number": "3423432423",
+    "MAC Address": "3D:F2:C9:A6:B3:4F"
+  }
+}

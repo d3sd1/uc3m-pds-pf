@@ -8,18 +8,18 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface Codificator<T> {
     /**
-     *
-     * @param toEncode
-     * @return
-     * @throws NoSuchAlgorithmException
+     * Encodes string to String from T object.
+     * @param toEncode String to encode.
+     * @return byte[] sequence of encoded object.
+     * @throws NoSuchAlgorithmException If there is not known algorithm.
      */
-    public byte[] encode(T toEncode) throws NoSuchAlgorithmException;
+    byte[] encode(T toEncode) throws NoSuchAlgorithmException;
 
     /**
-     *
-     * @param toDecode
-     * @return
-     * @throws NoSuchAlgorithmException
+     * Decodes string to T object.
+     * @param toDecode String to decode.
+     * @return T object that has been decoded.
+     * @throws NoSuchAlgorithmException If there is not known algorithm.
      */
-    public T decode(String toDecode) throws NoSuchAlgorithmException;
+    T decode(String toDecode) throws NoSuchAlgorithmException;
 }

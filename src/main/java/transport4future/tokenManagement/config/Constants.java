@@ -36,8 +36,8 @@ public class Constants {
      */
     public static final boolean IS_DEV = true;
     /**
-     * Determine if we are in dev mode or not.
-     * This should be done with maven and CLI args, but we don't want more complexity.
+     * This constant should'nt even exist, since this kind of thing should never happen on our code.
+     * This is used to pass tests, since TokenRequest must be (un)well-formatted to match the HexCode.
      */
     public static final String TOKEN_REQUEST_ENCODER_HEX = "TokenRequest [\\n\\Device Name={{DEVICE_NAME}}" +
             ",\n\t\\Type of Device={{TYPE_OF_DEVICE}}" +

@@ -23,10 +23,9 @@ import java.util.HashMap;
 /**
  * The type Database.
  *
- * @param <T> the type parameter
  * @param <L> the type parameter
  */
-public abstract class Database<T, L> {
+public abstract class Database<L> {
 
     /**
      * Instantiates a new Database.
@@ -45,16 +44,6 @@ public abstract class Database<T, L> {
     public abstract void add(L obj) throws TokenManagementException;
 
     /**
-     * Find k.
-     *
-     * @param <K>          the type parameter
-     * @param toFind the string to find
-     * @return the k
-     * @throws TokenManagementException the token management exception
-
-    public abstract <K> K find(K toFind) throws TokenManagementException;
-     */
-    /**
      * Save.
      *
      * @throws TokenManagementException the token management exception
@@ -67,4 +56,9 @@ public abstract class Database<T, L> {
      * @throws TokenManagementException the token management exception
      */
     protected abstract void reload() throws TokenManagementException;
+
+    /**
+     * Init database.
+     */
+    protected abstract void initDatabase();
 }

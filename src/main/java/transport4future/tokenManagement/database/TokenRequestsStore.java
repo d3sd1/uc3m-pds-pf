@@ -28,9 +28,9 @@ import java.util.HashMap;
 /**
  * The type Token request database.
  */
-public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, TokenRequest> {
+public class TokenRequestsStore extends Database<TokenRequest> {
     /**
-     * The constant database.
+     * Singleton instance.
      */
     protected static TokenRequestsStore database;
     /**
@@ -38,11 +38,21 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
      */
     protected static HashMap<String, TokenRequest> inMemoryDb;
 
+
     /**
-     *
+     * Private instantiation, so they must implement this as singleton.
      */
     private TokenRequestsStore() {
         super();
+    }
+
+
+    /**
+     * Init database requirements, and instantiate it.
+     *
+     */
+    @Override
+    protected void initDatabase() {
         try {
             FileManager fileManager = new FileManager();
             fileManager.createJsonFileIfNotExists(Constants.TOKEN_REQUEST_STORAGE_FILE, new HashMap<>());
@@ -52,21 +62,22 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
     }
 
     /**
-     * Gets instance.
+     * This returns a singleton instance from TokenRequestsStore.
      *
-     * @return the instance
+     * @return TokenManager singleton instance.
      */
     public static TokenRequestsStore getInstance() {
         if (database == null) {
             database = new TokenRequestsStore();
+            database.initDatabase();
         }
         return database;
     }
 
     /**
-     *
-     * @param tokenRequest
-     * @throws TokenManagementException
+     * Adds a TokenRequest to database.
+     * @param tokenRequest TokenRequest to add to database.
+     * @throws TokenManagementException If there was any issue on the add operation.
      */
     @Override
     public void add(TokenRequest tokenRequest) throws TokenManagementException {
@@ -78,8 +89,8 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
     }
 
     /**
-     *
-     * @throws TokenManagementException
+     * Flush the database with current values.
+     * @throws TokenManagementException If there was any issue flushing the database.
      */
     @Override
     protected void save() throws TokenManagementException {
@@ -93,8 +104,8 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
 
 
     /**
-     *
-     * @throws TokenManagementException
+     * Refresh database.
+     * @throws TokenManagementException When there is any error related to that refresh.
      */
     @Override
     protected void reload() throws TokenManagementException {
@@ -120,12 +131,12 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
     }
 
     /**
-     *
-     * @return
-     * @throws CloneNotSupportedException
+     * Prevents current object being cloned, so follow singleton pattern.
+     * @return Never returns anything.
+     * @throws CloneNotSupportedException Throwed always.
      */
     @Override
-    public TokenManager clone() throws CloneNotSupportedException {
+    public TokenRequestsStore clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
 

@@ -14,16 +14,17 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- *
+ * The type Token request type adapter.
  */
 public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> implements TransportTypeAdapter<TokenRequest> {
 
     /**
+     * From json to object.
      * we must check for integers since gson reflection does not divide strings nor ints, it threats it as the same
      *
-     * @param reader
-     * @return
-     * @throws IOException
+     * @param reader JsonReader inhetired from Gson's TypeAdapter.
+     * @return T obj filled.
+     * @throws IOException If there is any issue.
      */
     @Override
     public TokenRequest read(JsonReader reader) throws IOException {
@@ -98,6 +99,12 @@ public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> implement
         return tokenRequest;
     }
 
+    /**
+     * Constraint checker. This function is impure, but tests are too, since Gson and tests are not
+     * fully compatible, we have to do some parkour here =).
+     * @param tokenRequest T obj.
+     * @throws JsonSyntaxException If there is any related error.
+     */
     @Override
     public void doConstraints(TokenRequest tokenRequest) throws JsonSyntaxException {
 
@@ -152,13 +159,13 @@ public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> implement
     }
 
     /**
-     *
-     * @param writer
-     * @param token
-     * @throws IOException
+     * From object to json.
+     * @param writer JsonWriter inhetired from Gson's TypeAdapter.
+     * @param obj T object
+     * @throws IOException If there is any issue.
      */
     @Override
-    public void write(JsonWriter writer, TokenRequest token) throws IOException {
+    public void write(JsonWriter writer, TokenRequest obj) throws IOException {
         writer.beginObject();
         writer.name("Device Name");
         writer.value(token.getDeviceName());

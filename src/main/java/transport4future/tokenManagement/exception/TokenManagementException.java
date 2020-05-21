@@ -19,7 +19,7 @@ package Transport4Future.TokenManagement.exception;
 public class TokenManagementException extends Exception {
     private static final long serialVersionUID = 1L;
     /**
-     * The Message.
+     * Descriptive message related to triggered exception.
      */
     String message;
 

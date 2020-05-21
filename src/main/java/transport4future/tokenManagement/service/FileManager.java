@@ -46,6 +46,7 @@ public class FileManager {
      * Read file string.
      *
      * @param filePath the file path
+     * @param content  the content
      * @return the string
      * @throws IOException the io exception
      */

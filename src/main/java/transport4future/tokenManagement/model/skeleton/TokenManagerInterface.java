@@ -46,15 +46,21 @@ public interface TokenManagerInterface {
     boolean VerifyToken(String encodedToken) throws TokenManagementException;
 
 
-
-
+    /**
+     * Revoke token string.
+     *
+     * @param String FilePath represents the path to the file including the input required for the functionality
+     * @return String represents the notification e-mail.
+     * @throws TTokenManagementException represents the possible error situations
+     */
     String RevokeToken (String FilePath) throws TokenManagementException;
-    // String represents the notification e-mail obtenido como resultado del método
-    // String FilePath represents the path to the file including the input required for the functionality
-    // TokenManagementException represents the possible error situations
 
+    /**
+     * Execute action on autonomous car given it's token.
+     *
+     * @param String FilePath represents the path to the file including the input required for the functionality
+     * @return Boolean represents the success in the action execution
+     * @throws TokenManagementException represents represents the possible error situations
+     */
     boolean ExecuteAction (String FilePath) throws TokenManagementException;
-    // Boolean represents the success in the action execution
-    // String FilePath represents the path to the file including the input required for the functionality
-    // TokenManagementException represents represents the possible error situations
 }

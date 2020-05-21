@@ -15,14 +15,17 @@ import java.io.EOFException;
 import java.io.IOException;
 
 /**
- *
+ * The type Token type adapter.
  */
 public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTypeAdapter<Token> {
 
     /**
-     * @param reader
-     * @return
-     * @throws IOException
+     * From json to object.
+     * we must check for integers since gson reflection does not divide strings nor ints, it threats it as the same
+     *
+     * @param reader JsonReader inhetired from Gson's TypeAdapter.
+     * @return T obj filled.
+     * @throws IOException If there is any issue.
      */
     @Override
     public Token read(JsonReader reader) throws IOException {
@@ -80,6 +83,12 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
         return token;
     }
 
+    /**
+     * Constraint checker. This function is impure, but tests are too, since Gson and tests are not
+     * fully compatible, we have to do some parkour here =).
+     * @param tokenRequest T obj.
+     * @throws JsonSyntaxException If there is any related error.
+     */
     @Override
     public void doConstraints(Token token) {
 
@@ -111,9 +120,10 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
     }
 
     /**
-     * @param writer
-     * @param token
-     * @throws IOException
+     * From object to json.
+     * @param writer JsonWriter inhetired from Gson's TypeAdapter.
+     * @param obj T object
+     * @throws IOException If there is any issue.
      */
     @Override
     public void write(JsonWriter writer, Token token) throws IOException {

@@ -8,16 +8,16 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface Hasher<T> {
     /**
-     *
-     * @param toEncode
-     * @return
-     * @throws NoSuchAlgorithmException
+     * Encodes string to String from T object.
+     * @param toEncode String to encode.
+     * @return byte[] sequence of encoded object.
+     * @throws NoSuchAlgorithmException If there is not known algorithm.
      */
-    public byte[] encode(T toEncode) throws NoSuchAlgorithmException;
+    byte[] encode(T toEncode) throws NoSuchAlgorithmException;
     /**
-     *
-     * @param encodedData
-     * @return
+     * Gives the HexCode for a given encoded data.
+     * @param encodedData Encoded data to hex.
+     * @return String matching HexCode of given byte object.
      */
-    public String hex(byte[] encodedData);
+    String hex(byte[] encodedData);
 }
