@@ -36,7 +36,8 @@ public class Token {
     private final String requestDate;
     private final String notificationEmail;
     private String signature;
-    private String tokenValue;
+    private TokenRevokeType tokenRevokeType;
+    private String tokenRevokeReason;
 
     /**
      * Instantiates a new Token.
@@ -47,8 +48,8 @@ public class Token {
      */
     public Token(
             String tokenRequest,
-            String RequestDate,
-            String NotificationEmail) {
+            String NotificationEmail,
+            String RequestDate) {
         this.alg = TokenAlgorytm.HS256;
         this.typ = TokenType.PDS;
         this.tokenRequest = tokenRequest;
@@ -63,15 +64,14 @@ public class Token {
             }
         } else {
             this.iat = System.currentTimeMillis();
-        }
+        }/*
         try {
             this.encodeValue();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
 
         this.signature = null;
-        this.tokenValue = null;
     }
 
     /**
@@ -162,30 +162,6 @@ public class Token {
         this.signature = value;
     }
 
-    /**
-     * Gets token value.
-     *
-     * @return the token value
-     */
-    public String getTokenValue() {
-        return this.tokenValue;
-    }
-
-
-    /**
-     * Encode value hash for current token.
-     *
-     * @throws NoSuchAlgorithmException the no such algorithm exception
-     */
-    public void encodeValue() throws NoSuchAlgorithmException {
-        Hasher sha256Hasher = new Sha256Hasher();
-        byte[] sha256 = sha256Hasher.encode(this.getHeader() + this.getPayload());
-        String hex = sha256Hasher.hex(sha256);
-        this.setSignature(hex);
-        String stringToEncode = this.getHeader() + this.getPayload() + this.getSignature();
-        String encodedString = Base64.getUrlEncoder().encodeToString(stringToEncode.getBytes());
-        this.tokenValue = encodedString;
-    }
 
 
     /**
@@ -195,6 +171,38 @@ public class Token {
      */
     public boolean isValid() {
         return (!this.isExpired()) && (this.isGranted());
+    }
+
+    public TokenAlgorytm getAlg() {
+        return alg;
+    }
+
+    public TokenType getTyp() {
+        return typ;
+    }
+
+    public long getIat() {
+        return iat;
+    }
+
+    public long getExp() {
+        return exp;
+    }
+
+    public TokenRevokeType getTokenRevokeType() {
+        return tokenRevokeType;
+    }
+
+    public void setTokenRevokeType(TokenRevokeType tokenRevokeType) {
+        this.tokenRevokeType = tokenRevokeType;
+    }
+
+    public String getTokenRevokeReason() {
+        return tokenRevokeReason;
+    }
+
+    public void setTokenRevokeReason(String tokenRevokeReason) {
+        this.tokenRevokeReason = tokenRevokeReason;
     }
 
     @Override
@@ -209,13 +217,12 @@ public class Token {
                 Objects.equals(getTokenRequest(), token.getTokenRequest()) &&
                 Objects.equals(getRequestDate(), token.getRequestDate()) &&
                 Objects.equals(getNotificationEmail(), token.getNotificationEmail()) &&
-                Objects.equals(getSignature(), token.getSignature()) &&
-                Objects.equals(getTokenValue(), token.getTokenValue());
+                Objects.equals(getSignature(), token.getSignature());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alg, typ, iat, exp, getTokenRequest(), getRequestDate(), getNotificationEmail(), getSignature(), getTokenValue());
+        return Objects.hash(alg, typ, iat, exp, getTokenRequest(), getRequestDate(), getNotificationEmail(), getSignature());
     }
 
     @Override
@@ -229,7 +236,6 @@ public class Token {
                 ", requestDate='" + requestDate + '\'' +
                 ", notificationEmail='" + notificationEmail + '\'' +
                 ", signature='" + signature + '\'' +
-                ", tokenValue='" + tokenValue + '\'' +
                 '}';
     }
 }

@@ -24,20 +24,26 @@ import java.security.NoSuchAlgorithmException;
  * The type Hash manager.
  * Follows Strategy pattern.
  */
-public class Md5Hasher implements Hasher {
+public class Md5Hasher implements Hasher<String> {
     /**
      * Md 5 encode byte [ ].
      *
-     * @param dataToEncode the data to encode
+     * @param toEncode the data to encode
      * @return the byte [ ]
      * @throws NoSuchAlgorithmException the no such algorithm exception
      */
+
     @Override
-    public byte[] encode(String dataToEncode) throws NoSuchAlgorithmException {
+    public byte[] encode(String toEncode) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        String input = "Stardust" + "-" + dataToEncode;
+        String input = "Stardust" + "-" + toEncode;
         md.update(input.getBytes(StandardCharsets.UTF_8));
         return md.digest();
+    }
+
+    //@Override
+    public String decode(byte[] toDecode) throws NoSuchAlgorithmException {
+        return null; // TODO
     }
 
     /**

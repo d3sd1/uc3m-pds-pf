@@ -16,16 +16,20 @@ package Transport4Future.TokenManagement.controller;
 import Transport4Future.TokenManagement.database.TokenRequestsStore;
 import Transport4Future.TokenManagement.database.TokensStore;
 import Transport4Future.TokenManagement.exception.TokenManagementException;
-import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.TokenRequest;
+import Transport4Future.TokenManagement.model.*;
 import Transport4Future.TokenManagement.model.skeleton.TokenManagerInterface;
 import Transport4Future.TokenManagement.service.FileManager;
+import Transport4Future.TokenManagement.service.TokenHasher;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 
 
 /**
@@ -118,9 +122,11 @@ public class TokenManager implements TokenManagerInterface {
         }
 
         tokenRequestsStore.isRequestRegistered(token);
+        TokenHasher tokenHasher = new TokenHasher();
 
+        String hashedToken;
         try {
-            token.encodeValue();
+            hashedToken = new String(tokenHasher.encode(token), StandardCharsets.UTF_8);
             myStore.add(token);
         } catch (NoSuchAlgorithmException e) {
             throw new TokenManagementException("Error: no such hashing algorithm.");
@@ -128,7 +134,7 @@ public class TokenManager implements TokenManagerInterface {
             throw new TokenManagementException("Error: could not encode token request.");
         }
 
-        return token.getTokenValue();
+        return hashedToken;
     }
 
 
@@ -138,17 +144,92 @@ public class TokenManager implements TokenManagerInterface {
      * NOTE: Gettting exception "JsonSyntaxException" means deserializers got an exception,
      * that we poreviously configured the message, so we convert it to TokenManagementException and throw it,
      * since we cannot throw TokenManagementException from deserializers due to Gson issues.
-     * @param encodedToken
      * @return Wetter is valid or not.
      * @return Wetter is valid or not.
      * @throws TokenManagementException If there is a crash during the verification.
      */
-    public boolean VerifyToken(String encodedToken) throws TokenManagementException {
-        Token tokenFound = TokensStore.getInstance().find(encodedToken);
+    public boolean VerifyToken(String base64EncodedToken) throws TokenManagementException {
+
+        TokenHasher tokenHasher = new TokenHasher();
+        Token decodedToken;
+        try {
+            decodedToken = tokenHasher.decode(base64EncodedToken);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        Token tokenFound = TokensStore.getInstance().find(decodedToken);
         if (tokenFound != null) {
             return tokenFound.isValid();
         }
         return false;
+    }
+
+    @Override
+    public String RevokeToken(String inputFile) throws TokenManagementException {
+
+        FileManager fileManager = new FileManager();
+        TokenRevoke tokenRevoke;
+        TokenHasher tokenHasher = new TokenHasher();
+        Token decodedToken;
+        //TODO: el typeadapter!
+        try {
+            tokenRevoke = fileManager.readJsonFile(inputFile, TokenRevoke.class);
+            decodedToken = tokenHasher.decode(tokenRevoke.getTokenValue());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new TokenManagementException("El fichero de entrada tiene algún problema de formato o de acceso.");
+        } catch (JsonSyntaxException e) {
+            throw new TokenManagementException(e.getMessage());
+        }
+
+        Token tokenFound = TokensStore.getInstance().find(decodedToken);
+        if (tokenFound == null) {
+            throw new TokenManagementException("El token que se quiere revocar no existe.");
+        } else if(tokenFound.isExpired()) {
+            throw new TokenManagementException("El token que se quiere revocar ya ha caducado.");
+        } else if(tokenRevoke.getTokenRevokeType() == decodedToken.getTokenRevokeType()) {
+            throw new TokenManagementException("El token que se quiere revocar ya está revocado en la misma modalidad.");
+        }
+        decodedToken.setTokenRevokeType(tokenRevoke.getTokenRevokeType());
+        decodedToken.setTokenRevokeReason(tokenRevoke.getReason());
+        return decodedToken.getNotificationEmail();
+    }
+
+    @Override
+    public boolean ExecuteAction(String inputFile) throws TokenManagementException {
+
+        FileManager fileManager = new FileManager();
+        TokenExecuteAction tokenExecuteAction;
+        TokenHasher tokenHasher = new TokenHasher();
+        Token decodedToken;
+        //TODO: el tupeadapter!
+        try {
+            tokenExecuteAction = fileManager.readJsonFile(inputFile, TokenExecuteAction.class);
+            decodedToken = tokenHasher.decode(tokenExecuteAction.getTokenValue());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new TokenManagementException("El fichero de entrada tiene algún problema de formato o de acceso.");
+        } catch (JsonSyntaxException e) {
+            throw new TokenManagementException(e.getMessage());
+        }
+
+        boolean executedSuccess = false;
+
+
+        boolean isOperationValid = false;
+
+        String tokenType = "Sensor"; /// O Actuator //TODO
+        if(tokenType == "Sensor" && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendInformationFromSensor) {
+            isOperationValid = true;
+        } else if(tokenType == "Actuator" && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendRequestToActuator) {
+            isOperationValid = true;
+        } else if((tokenType == "Actuator" || tokenType == "Sensor") && tokenExecuteAction.getTokenOperationType() == TokenOperationType.CheckState) {
+            isOperationValid = true;
+        }
+        if(!isOperationValid) {
+            throw new TokenManagementException("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.");
+        }
+
+        return executedSuccess;
     }
 
     @Override

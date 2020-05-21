@@ -44,4 +44,17 @@ public interface TokenManagerInterface {
      * @throws TokenManagementException the token management exception
      */
     boolean VerifyToken(String encodedToken) throws TokenManagementException;
+
+
+
+
+    String RevokeToken (String FilePath) throws TokenManagementException;
+    // String represents the notification e-mail obtenido como resultado del método
+    // String FilePath represents the path to the file including the input required for the functionality
+    // TokenManagementException represents the possible error situations
+
+    boolean ExecuteAction (String FilePath) throws TokenManagementException;
+    // Boolean represents the success in the action execution
+    // String FilePath represents the path to the file including the input required for the functionality
+    // TokenManagementException represents represents the possible error situations
 }

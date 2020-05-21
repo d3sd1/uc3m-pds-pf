@@ -2,6 +2,7 @@ package Transport4Future.TokenManagement.model.typeadapter;
 
 import Transport4Future.TokenManagement.config.RegexConstants;
 import Transport4Future.TokenManagement.model.Token;
+import Transport4Future.TokenManagement.model.skeleton.TransportTypeAdapter;
 import Transport4Future.TokenManagement.service.PatternChecker;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
@@ -16,10 +17,9 @@ import java.io.IOException;
 /**
  *
  */
-public class TokenTypeAdapter extends TypeAdapter<Token> {
+public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTypeAdapter<Token> {
 
     /**
-     *
      * @param reader
      * @return
      * @throws IOException
@@ -71,56 +71,46 @@ public class TokenTypeAdapter extends TypeAdapter<Token> {
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
         reader.endObject();
-        this.doConstraints(
-                tokenRequest,
-                notificationEmail,
-                requestDate);
-        return new Token(
+        Token token = new Token(
                 tokenRequest,
                 notificationEmail,
                 requestDate
         );
+        this.doConstraints(token);
+        return token;
     }
 
-    /**
-     *
-     * @param tokenRequest
-     * @param notificationEmail
-     * @param requestDate
-     */
-    private void doConstraints(String tokenRequest,
-            String notificationEmail,
-            String requestDate) {
+    @Override
+    public void doConstraints(Token token) {
 
-        if (tokenRequest == null
-                && notificationEmail == null
-                && requestDate == null) {
+        if (token.getTokenRequest() == null
+                && token.getNotificationEmail() == null
+                && token.getRequestDate() == null) {
             throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
         }
-        if (tokenRequest == null
-                || notificationEmail == null
-                || requestDate == null) {
+        if (token.getTokenRequest() == null
+                || token.getNotificationEmail() == null
+                || token.getRequestDate() == null) {
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
-        if (tokenRequest.contains("\"")) {
+        if (token.getTokenRequest().contains("\"")) {
             throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
         }
 
         PatternChecker patternChecker = new PatternChecker();
-        if (patternChecker.checkRegex(tokenRequest, RegexConstants.DEVICE)) {
+        if (patternChecker.checkRegex(token.getTokenRequest(), RegexConstants.DEVICE)) {
             throw new JsonSyntaxException("Error: invalid Device in token request.");
         }
 
-        if (patternChecker.checkRegex(notificationEmail, RegexConstants.EMAIL_RFC822)) {
+        if (patternChecker.checkRegex(token.getNotificationEmail(), RegexConstants.EMAIL_RFC822)) {
             throw new JsonSyntaxException("Error: invalid E-mail data in JSON structure.");
         }
-        if (patternChecker.checkRegex(requestDate, RegexConstants.JSON_DATE_FORMAT)) {
+        if (patternChecker.checkRegex(token.getRequestDate(), RegexConstants.JSON_DATE_FORMAT)) {
             throw new JsonSyntaxException("Error: invalid date data in JSON structure.");
         }
     }
 
     /**
-     *
      * @param writer
      * @param token
      * @throws IOException

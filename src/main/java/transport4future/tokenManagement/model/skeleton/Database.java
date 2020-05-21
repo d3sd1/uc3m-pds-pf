@@ -48,12 +48,12 @@ public abstract class Database<T, L> {
      * Find k.
      *
      * @param <K>          the type parameter
-     * @param stringToFind the string to find
+     * @param toFind the string to find
      * @return the k
      * @throws TokenManagementException the token management exception
-     */
-    public abstract <K> K find(String stringToFind) throws TokenManagementException;
 
+    public abstract <K> K find(K toFind) throws TokenManagementException;
+     */
     /**
      * Save.
      *

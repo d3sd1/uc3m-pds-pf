@@ -2,6 +2,7 @@ package Transport4Future.TokenManagement.model.typeadapter;
 
 import Transport4Future.TokenManagement.config.RegexConstants;
 import Transport4Future.TokenManagement.model.TokenRequest;
+import Transport4Future.TokenManagement.model.skeleton.TransportTypeAdapter;
 import Transport4Future.TokenManagement.service.PatternChecker;
 import Transport4Future.TokenManagement.service.TypeChecker;
 import com.google.gson.JsonSyntaxException;
@@ -15,7 +16,7 @@ import java.io.IOException;
 /**
  *
  */
-public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> {
+public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> implements TransportTypeAdapter<TokenRequest> {
 
     /**
      * we must check for integers since gson reflection does not divide strings nor ints, it threats it as the same
@@ -85,13 +86,7 @@ public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> {
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
         reader.endObject();
-        this.doConstraints(deviceName,
-                typeOfDevice,
-                driverVersion,
-                supportEmail,
-                serialNumber,
-                macAddress);
-        return new TokenRequest(
+        TokenRequest tokenRequest = new TokenRequest(
                 deviceName,
                 typeOfDevice,
                 driverVersion,
@@ -99,71 +94,59 @@ public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> {
                 serialNumber,
                 macAddress
         );
+        this.doConstraints(tokenRequest);
+        return tokenRequest;
     }
 
-    /**
-     *
-     * @param deviceName
-     * @param typeOfDevice
-     * @param driverVersion
-     * @param supportEmail
-     * @param serialNumber
-     * @param macAddress
-     * @throws JsonSyntaxException
-     */
-    private void doConstraints(String deviceName,
-                               String typeOfDevice,
-                               String driverVersion,
-                               String supportEmail,
-                               String serialNumber,
-                               String macAddress) throws JsonSyntaxException {
+    @Override
+    public void doConstraints(TokenRequest tokenRequest) throws JsonSyntaxException {
 
         TypeChecker typeChecker = new TypeChecker();
-        if (deviceName == null
-                && typeOfDevice == null
-                && serialNumber == null
-                && supportEmail == null
-                && driverVersion == null
-                && macAddress == null) {
+        if (tokenRequest.getDeviceName() == null
+                && tokenRequest.getTypeOfDevice() == null
+                && tokenRequest.getSerialNumber() == null
+                && tokenRequest.getSupportEMail() == null
+                && tokenRequest.getDriverVersion() == null
+                && tokenRequest.getMacAddress() == null) {
             throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
         }
-        if (deviceName == null
-                || typeOfDevice == null
-                || serialNumber == null
-                || supportEmail == null
-                || driverVersion == null
-                || macAddress == null
-                || typeChecker.isInteger(serialNumber)
-                || typeChecker.isInteger(driverVersion)
-                || typeChecker.isInteger(macAddress)
-                || typeChecker.isInteger(typeOfDevice)
-                || typeChecker.isInteger(supportEmail)
-                || typeChecker.isInteger(deviceName)
+        if (tokenRequest.getDeviceName() == null
+                || tokenRequest.getTypeOfDevice() == null
+                || tokenRequest.getSerialNumber() == null
+                || tokenRequest.getSupportEMail() == null
+                || tokenRequest.getDriverVersion() == null
+                || tokenRequest.getMacAddress() == null
+                || typeChecker.isInteger(tokenRequest.getSerialNumber())
+                || typeChecker.isInteger(tokenRequest.getDriverVersion())
+                || typeChecker.isInteger(tokenRequest.getMacAddress())
+                || typeChecker.isInteger(tokenRequest.getTypeOfDevice())
+                || typeChecker.isInteger(tokenRequest.getSupportEMail())
+                || typeChecker.isInteger(tokenRequest.getDeviceName())
         ) {
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
         PatternChecker patternChecker = new PatternChecker();
-        if (!patternChecker.checkLengthBetween(deviceName, 1, 20)) {
+        if (!patternChecker.checkLengthBetween(tokenRequest.getDeviceName(), 1, 20)) {
             throw new JsonSyntaxException("Error: invalid String length for device name.");
         }
 
-        if (patternChecker.checkRegex(serialNumber, RegexConstants.SERIAL_NUMBER)) {
+        if (patternChecker.checkRegex(tokenRequest.getSerialNumber(), RegexConstants.SERIAL_NUMBER)) {
             throw new JsonSyntaxException("Error: invalid String length for serial number.");
         }
-        if (!patternChecker.checkLengthBetween(driverVersion, 1, 25)
-                || patternChecker.checkRegex(driverVersion, RegexConstants.DRIVER_VERSION)) {
+        if (!patternChecker.checkLengthBetween(tokenRequest.getDriverVersion(), 1, 25)
+                || patternChecker.checkRegex(tokenRequest.getDriverVersion(), RegexConstants.DRIVER_VERSION)) {
             throw new JsonSyntaxException("Error: invalid String length for driver version.");
         }
 
-        if (patternChecker.checkRegex(supportEmail, RegexConstants.EMAIL_RFC822)) {
+        if (patternChecker.checkRegex(tokenRequest.getSupportEMail(), RegexConstants.EMAIL_RFC822)) {
             throw new JsonSyntaxException("Error: invalid E-mail data in JSON structure.");
         }
 
-        if (!patternChecker.checkValueInAccepted(typeOfDevice, RegexConstants.VALID_TYPE_OF_DEVICE)) {
+        if (!patternChecker.checkValueInAccepted(tokenRequest.getTypeOfDevice(), RegexConstants.VALID_TYPE_OF_DEVICE)) {
             throw new JsonSyntaxException("Error: invalid type of sensor.");
         }
 
-        if (patternChecker.checkRegex(macAddress, RegexConstants.MAC_ADDRESS)) {
+        if (patternChecker.checkRegex(tokenRequest.getMacAddress(), RegexConstants.MAC_ADDRESS)) {
             throw new JsonSyntaxException("Error: invalid MAC Address data in JSON structure.");
         }
     }

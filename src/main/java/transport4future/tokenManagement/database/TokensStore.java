@@ -19,6 +19,7 @@ import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.skeleton.Database;
 import Transport4Future.TokenManagement.service.FileManager;
+import Transport4Future.TokenManagement.service.TokenHasher;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
@@ -72,7 +73,7 @@ public class TokensStore extends Database<List<Token>, Token> {
      */
     @Override
     public void add(Token newToken) throws TokenManagementException {
-        if (this.find(newToken.getTokenValue()) == null) {
+        if (this.find(newToken) == null) {
             inMemoryDb.add(newToken);
             this.save();
         }
@@ -94,16 +95,10 @@ public class TokensStore extends Database<List<Token>, Token> {
         }
     }
 
-    /**
-     *
-     * @param tokenToFind
-     * @return
-     */
-    @Override
-    public Token find(String tokenToFind) {
+    public Token find(Token tokenToFind) {
         Token result = null;
         for (Token token : inMemoryDb) {
-            if (token.getTokenValue().equals(tokenToFind)) {
+            if (token.equals(tokenToFind)) {
                 result = token;
             }
         }

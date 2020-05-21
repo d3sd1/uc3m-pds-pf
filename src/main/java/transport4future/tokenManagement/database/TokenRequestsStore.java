@@ -91,16 +91,6 @@ public class TokenRequestsStore extends Database<HashMap<String, TokenRequest>, 
         }
     }
 
-    /**
-     *
-     * @param tokenRequestToFind
-     * @return
-     * @throws TokenManagementException
-     */
-    @Override
-    public TokenRequest find(String tokenRequestToFind) throws TokenManagementException {
-        return inMemoryDb.get(tokenRequestToFind);
-    }
 
     /**
      *

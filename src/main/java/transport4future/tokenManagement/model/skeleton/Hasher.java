@@ -5,14 +5,22 @@ import java.security.NoSuchAlgorithmException;
 /**
  *
  */
-public interface Hasher {
+public interface Hasher<T> {
     /**
      *
      * @param toEncode
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public byte[] encode(String toEncode) throws NoSuchAlgorithmException;
+    public byte[] encode(T toEncode) throws NoSuchAlgorithmException;
+
+    /**
+     *
+     * @param toDecode
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
+    // TODO public T decode(byte[] toDecode) throws NoSuchAlgorithmException;
 
     /**
      *

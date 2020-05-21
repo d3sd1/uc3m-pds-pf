@@ -7,7 +7,7 @@
 - **Java 8 en adelante**.
 - **Maven**.
 
-**Trabajos BASE (Práctica 4)**:
+**Trabajos BASE (Práctica final)**:
 - Texto indentado.
 - Nomenclatura respetada.
 - Homogeneizados nombres.
@@ -35,7 +35,7 @@
 - Usado patrón Singleton en TokenManager, TokenRequestsStore y TokensStore 
 - Verificada normativa de código
        
-**Trabajos EXTRA (Práctica 4)**:
+**Trabajos EXTRA (Práctica final)**:
 - Se ha refactorizado usando tipos genéricos.
 - Se ha agregado la herramienta de checking SonarCloud mediante integración continua.
 - Se ha generado la documentación completa "JavaDoc" sobre la carpeta "JavaDoc".
@@ -61,5 +61,6 @@
 TokenRequestTest -> 15,16,17, ya que por casuística se han generalizado estos dos tipos, y en los tests no estaba contemplada esta distinción. Al usar reflection, esta excepción es más genérica y no se pueden distinguir entre los mensajes:
 Error: invalid input data in JSON structure.
 Error: JSON object cannot be created due to incorrect representation
+TokenHasher -> Hemos modificado el test VerifyTokenTest para que el input no sea un token hasheado sin formato, sino el mismo token pero hasheado en json + base64.
 
 Ya que en este caso representan lo mismo en el contexto.

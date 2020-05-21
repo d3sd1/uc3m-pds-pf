@@ -13,36 +13,41 @@
 
 package Transport4Future.TokenManagement.service;
 
+import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.skeleton.Hasher;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import javax.crypto.spec.PSource;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * The type Hash manager.
  * Follows Strategy pattern.
  */
-public class Sha256Hasher implements Hasher<String> {
+public class TokenHasher implements Hasher<Token> {
 
     /**
      * Sha 256 encode byte [ ].
      *
-     * @param dataToSign the data to sign
+     * @param tokenToEncode the data to sign
      * @return the byte [ ]
      * @throws NoSuchAlgorithmException the no such algorithm exception
      */
     @Override
-    public byte[] encode(String dataToSign) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(dataToSign.getBytes(StandardCharsets.UTF_8));
-        return md.digest();
+    public byte[] encode(Token tokenToEncode) throws NoSuchAlgorithmException {
+        Gson gson = new Gson();
+        return Base64.getEncoder().encodeToString(gson.toJson(tokenToEncode).getBytes()).getBytes();
     }
 
-    //@Override
-    public String decode(byte[] toDecode) throws NoSuchAlgorithmException {
-        return null; // TODO
+    public Token decode(String base64) throws NoSuchAlgorithmException {
+        Gson gson = new Gson();
+        return gson.fromJson(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8), Token.class);
     }
 
     /**
