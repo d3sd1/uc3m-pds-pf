@@ -3,7 +3,9 @@ package Transport4Future.TokenManagement.service;
 import Transport4Future.TokenManagement.config.Constants;
 import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.TokenRequest;
+import Transport4Future.TokenManagement.model.TokenRevoke;
 import Transport4Future.TokenManagement.model.typeadapter.TokenRequestTypeAdapter;
+import Transport4Future.TokenManagement.model.typeadapter.TokenRevokeTypeAdapter;
 import Transport4Future.TokenManagement.model.typeadapter.TokenTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,6 +29,7 @@ public class JsonManager {
         builder.create();
         builder.registerTypeAdapter(Token.class, new TokenTypeAdapter());
         builder.registerTypeAdapter(TokenRequest.class, new TokenRequestTypeAdapter());
+        builder.registerTypeAdapter(TokenRevoke.class, new TokenRevokeTypeAdapter());
         return builder.create();
     }
 

@@ -61,11 +61,7 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
                     throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
                 }
             }
-        } catch (IllegalStateException e) {
-            throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
-        } catch (EOFException e) {
-            throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
-        } catch (MalformedJsonException e) {
+        } catch (IllegalStateException | EOFException | MalformedJsonException e) {
             throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
         }
         if (!foundTokenRequest
@@ -86,7 +82,7 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
     /**
      * Constraint checker. This function is impure, but tests are too, since Gson and tests are not
      * fully compatible, we have to do some parkour here =).
-     * @param tokenRequest T obj.
+     * @param token T obj.
      * @throws JsonSyntaxException If there is any related error.
      */
     @Override
@@ -122,7 +118,7 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
     /**
      * From object to json.
      * @param writer JsonWriter inhetired from Gson's TypeAdapter.
-     * @param obj T object
+     * @param token T object
      * @throws IOException If there is any issue.
      */
     @Override
