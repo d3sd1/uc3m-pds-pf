@@ -39,8 +39,8 @@ public class Token {
      * Instantiates a new Token.
      *
      * @param tokenRequest      the device
-     * @param RequestDate       the request date
      * @param NotificationEmail the notification email
+     * @param RequestDate       the request date
      */
     public Token(
             String tokenRequest,
@@ -159,7 +159,6 @@ public class Token {
     }
 
 
-
     /**
      * Check if token is valid, granted, on database and not expired.
      *
@@ -169,34 +168,74 @@ public class Token {
         return (!this.isExpired()) && (this.isGranted());
     }
 
+    /**
+     * Gets alg.
+     *
+     * @return the alg
+     */
     public TokenAlgorytm getAlg() {
         return alg;
     }
 
+    /**
+     * Gets typ.
+     *
+     * @return the typ
+     */
     public TokenType getTyp() {
         return typ;
     }
 
+    /**
+     * Gets iat.
+     *
+     * @return the iat
+     */
     public long getIat() {
         return iat;
     }
 
+    /**
+     * Gets exp.
+     *
+     * @return the exp
+     */
     public long getExp() {
         return exp;
     }
 
+    /**
+     * Gets token revoke type.
+     *
+     * @return the token revoke type
+     */
     public TokenRevokeType getTokenRevokeType() {
         return tokenRevokeType;
     }
 
+    /**
+     * Sets token revoke type.
+     *
+     * @param tokenRevokeType the token revoke type
+     */
     public void setTokenRevokeType(TokenRevokeType tokenRevokeType) {
         this.tokenRevokeType = tokenRevokeType;
     }
 
+    /**
+     * Gets token revoke reason.
+     *
+     * @return the token revoke reason
+     */
     public String getTokenRevokeReason() {
         return tokenRevokeReason;
     }
 
+    /**
+     * Sets token revoke reason.
+     *
+     * @param tokenRevokeReason the token revoke reason
+     */
     public void setTokenRevokeReason(String tokenRevokeReason) {
         this.tokenRevokeReason = tokenRevokeReason;
     }
