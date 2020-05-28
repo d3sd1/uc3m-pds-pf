@@ -5,6 +5,7 @@ import Transport4Future.TokenManagement.database.TokenRequestsStore;
 import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.TokenDeviceType;
 import Transport4Future.TokenManagement.model.TokenRequest;
+import Transport4Future.TokenManagement.model.TokenRevokeType;
 import Transport4Future.TokenManagement.model.skeleton.TransportTypeAdapter;
 import Transport4Future.TokenManagement.service.PatternChecker;
 import com.google.gson.JsonSyntaxException;
@@ -34,10 +35,14 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
     public Token read(JsonReader reader) throws IOException {
         String tokenRequest = "",
                 notificationEmail = "",
-                requestDate = "";
+                requestDate = "",
+                revokeType = "",
+                revokeReason = "";
         boolean foundTokenRequest = false,
                 foundNotificationEmail = false,
-                foundRequestDate = false;
+                foundRequestDate = false,
+                foundRevokeType = false,
+                foundRevokeReason = false;
         try {
             reader.setLenient(false);
             reader.beginObject();
@@ -60,6 +65,12 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
                 } else if (fieldname.equals("Request Date")) {
                     requestDate = reader.nextString();
                     foundRequestDate = true;
+                } else if (fieldname.equals("Revoke Type")) {
+                    revokeType = reader.nextString();
+                    foundRevokeType = true;
+                } else if (fieldname.equals("Revoke Reason")) {
+                    revokeReason = reader.nextString();
+                    foundRevokeReason = true;
                 } else {
                     throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
                 }
@@ -81,6 +92,12 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
                 requestDate,
                 tokenDeviceType
         );
+        try {
+            token.setTokenRevokeType(TokenRevokeType.valueOf(revokeType));
+        } catch(Exception e) {
+
+        }
+        token.setTokenRevokeReason(revokeReason);
         this.doConstraints(token);
         return token;
     }
@@ -138,6 +155,14 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
         writer.value(token.getNotificationEmail());
         writer.name("Request Date");
         writer.value(token.getRequestDate());
+        writer.name("Revoke Type");
+        if(token.getTokenRevokeType() != null) {
+            writer.value(token.getTokenRevokeType().toString());
+        } else {
+            writer.value("");
+        }
+        writer.name("Revoke Reason");
+        writer.value(token.getTokenRevokeReason());
         writer.endObject();
     }
 
