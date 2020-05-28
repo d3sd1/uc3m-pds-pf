@@ -97,11 +97,10 @@ public class TokenRevokeTypeAdapter extends TypeAdapter<TokenRevoke> implements 
      */
     @Override
     public void doConstraints(TokenRevoke tokenRevoke) {
-
         if (tokenRevoke.getTokenValue() == null
-                && tokenRevoke.getTokenRevokeType() == null
-                && tokenRevoke.getReason() == null) {
-            throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
+                || tokenRevoke.getTokenRevokeType() == null
+                || tokenRevoke.getReason() == null) {
+            throw new JsonSyntaxException("El fichero de entrada tiene algún problema de formato o de acceso.");
         }
 
         if (tokenRevoke.getReason().length() > 100) {
