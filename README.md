@@ -1,6 +1,7 @@
 **Información útil**:
 - **Wiki**: Situada en el menú izquierdo. Contiene tutoriales y desgloses de trabajos realizados.
 - **Issues**: Situada en el menú izquierdo, contiene problemas, bugs y resoluciones de los mismos.
+- **carpeta /docs**: Contiene todos los documentos relativos a la entrefa de la práctica.
 
 
 **Requisitos proyecto**:
