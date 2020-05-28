@@ -46,27 +46,21 @@ public class Token {
     public Token(
             String tokenRequest,
             String NotificationEmail,
-            String RequestDate) {
+            String RequestDate,
+            TokenDeviceType tokenDeviceType) {
         this.alg = TokenAlgorytm.HS256;
         this.typ = TokenType.PDS;
         this.tokenRequest = tokenRequest;
         this.requestDate = RequestDate;
         this.notificationEmail = NotificationEmail;
         if (Constants.IS_DEV) {
-            this.iat = 1584523340892l;
-            if ((this.tokenRequest.startsWith("5"))) {
-                this.exp = this.iat + 604800000l;
-            } else {
-                this.exp = this.iat + 65604800000l;
-            }
+            this.iat = 1590664780535L;
+            this.exp = 1656269580535L;
         } else {
             this.iat = System.currentTimeMillis();
-        }/*
-        try {
-            this.encodeValue();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }*/
+            this.exp = this.iat + 65604800000L;
+        }
+        this.deviceType = tokenDeviceType;
 
         this.signature = null;
     }
@@ -241,20 +235,10 @@ public class Token {
         this.tokenRevokeReason = tokenRevokeReason;
     }
 
-    /**
-     * Gets device type.
-     *
-     * @return the device type
-     */
     public TokenDeviceType getDeviceType() {
         return deviceType;
     }
 
-    /**
-     * Sets device type.
-     *
-     * @param deviceType the device type
-     */
     public void setDeviceType(TokenDeviceType deviceType) {
         this.deviceType = deviceType;
     }
@@ -279,18 +263,20 @@ public class Token {
         return Objects.hash(alg, typ, iat, exp, getTokenRequest(), getRequestDate(), getNotificationEmail(), getSignature());
     }
 
-
     @Override
     public String toString() {
         return "Token{" +
-                "alg='" + alg + '\'' +
-                ", typ='" + typ + '\'' +
+                "alg=" + alg +
+                ", typ=" + typ +
+                ", deviceType=" + deviceType +
                 ", iat=" + iat +
                 ", exp=" + exp +
-                ", device='" + tokenRequest + '\'' +
+                ", tokenRequest='" + tokenRequest + '\'' +
                 ", requestDate='" + requestDate + '\'' +
                 ", notificationEmail='" + notificationEmail + '\'' +
                 ", signature='" + signature + '\'' +
+                ", tokenRevokeType=" + tokenRevokeType +
+                ", tokenRevokeReason='" + tokenRevokeReason + '\'' +
                 '}';
     }
 }

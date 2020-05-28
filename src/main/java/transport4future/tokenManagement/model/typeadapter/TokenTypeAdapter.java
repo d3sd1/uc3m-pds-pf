@@ -1,7 +1,10 @@
 package Transport4Future.TokenManagement.model.typeadapter;
 
 import Transport4Future.TokenManagement.config.RegexConstants;
+import Transport4Future.TokenManagement.database.TokenRequestsStore;
 import Transport4Future.TokenManagement.model.Token;
+import Transport4Future.TokenManagement.model.TokenDeviceType;
+import Transport4Future.TokenManagement.model.TokenRequest;
 import Transport4Future.TokenManagement.model.skeleton.TransportTypeAdapter;
 import Transport4Future.TokenManagement.service.PatternChecker;
 import com.google.gson.JsonSyntaxException;
@@ -70,10 +73,13 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
         reader.endObject();
+
+        TokenDeviceType tokenDeviceType = getTokenDeviceType(tokenRequest);
         Token token = new Token(
                 tokenRequest,
                 notificationEmail,
-                requestDate
+                requestDate,
+                tokenDeviceType
         );
         this.doConstraints(token);
         return token;
@@ -82,6 +88,7 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
     /**
      * Constraint checker. This function is impure, but tests are too, since Gson and tests are not
      * fully compatible, we have to do some parkour here =).
+     *
      * @param token T obj.
      * @throws JsonSyntaxException If there is any related error.
      */
@@ -117,8 +124,9 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
 
     /**
      * From object to json.
+     *
      * @param writer JsonWriter inhetired from Gson's TypeAdapter.
-     * @param token T object
+     * @param token  T object
      * @throws IOException If there is any issue.
      */
     @Override
@@ -131,5 +139,21 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
         writer.name("Request Date");
         writer.value(token.getRequestDate());
         writer.endObject();
+    }
+
+    public static TokenDeviceType getTokenDeviceType(String tokenRequest) {
+        TokenRequest tokenRequestDecoded = TokenRequestsStore.getInstance().find(tokenRequest);
+        TokenDeviceType tokenDeviceType = null;
+        if (tokenRequestDecoded != null) {
+            switch (tokenRequestDecoded.getTypeOfDevice().toLowerCase()) {
+                case "actuator":
+                    tokenDeviceType = TokenDeviceType.Actuator;
+                    break;
+                case "sensor":
+                    tokenDeviceType = TokenDeviceType.Sensor;
+                    break;
+            }
+        }
+        return tokenDeviceType;
     }
 }

@@ -2,8 +2,10 @@ package Transport4Future.TokenManagement.service;
 
 import Transport4Future.TokenManagement.config.Constants;
 import Transport4Future.TokenManagement.model.Token;
+import Transport4Future.TokenManagement.model.TokenExecuteAction;
 import Transport4Future.TokenManagement.model.TokenRequest;
 import Transport4Future.TokenManagement.model.TokenRevoke;
+import Transport4Future.TokenManagement.model.typeadapter.TokenExecuteActionTypeAdapter;
 import Transport4Future.TokenManagement.model.typeadapter.TokenRequestTypeAdapter;
 import Transport4Future.TokenManagement.model.typeadapter.TokenRevokeTypeAdapter;
 import Transport4Future.TokenManagement.model.typeadapter.TokenTypeAdapter;
@@ -30,6 +32,7 @@ public class JsonManager {
         builder.registerTypeAdapter(Token.class, new TokenTypeAdapter());
         builder.registerTypeAdapter(TokenRequest.class, new TokenRequestTypeAdapter());
         builder.registerTypeAdapter(TokenRevoke.class, new TokenRevokeTypeAdapter());
+        builder.registerTypeAdapter(TokenExecuteAction.class, new TokenExecuteActionTypeAdapter());
         return builder.create();
     }
 

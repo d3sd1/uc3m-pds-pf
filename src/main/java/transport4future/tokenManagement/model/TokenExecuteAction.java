@@ -4,8 +4,8 @@ package Transport4Future.TokenManagement.model;
  * The type Token execute action.
  */
 public class TokenExecuteAction {
-    private String tokenValue; //"Token Value": "< Cadena de caracteres >",
-    private TokenOperationType tokenOperationType; // "Type of operation":"<Send Information from Sensor| Send Request to Actuator | Check State >"
+    private String tokenValue;
+    private TokenOperationType tokenOperationType;
 
     /**
      * Instantiates a new Token execute action.
@@ -52,5 +52,17 @@ public class TokenExecuteAction {
      */
     public void setTokenOperationType(TokenOperationType tokenOperationType) {
         this.tokenOperationType = tokenOperationType;
+    }
+
+    /**
+     *
+     * @return String representation of object.
+     */
+    @Override
+    public String toString() {
+        return "TokenExecuteAction{" +
+                "tokenValue='" + tokenValue + '\'' +
+                ", tokenOperationType=" + tokenOperationType +
+                '}';
     }
 }

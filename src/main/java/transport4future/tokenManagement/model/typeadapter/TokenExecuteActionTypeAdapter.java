@@ -1,5 +1,6 @@
 package Transport4Future.TokenManagement.model.typeadapter;
 
+import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.TokenExecuteAction;
 import Transport4Future.TokenManagement.model.TokenOperationType;
 import Transport4Future.TokenManagement.model.TokenRevoke;
@@ -30,12 +31,10 @@ public class TokenExecuteActionTypeAdapter extends TypeAdapter<TokenExecuteActio
      */
     @Override
     public TokenExecuteAction read(JsonReader reader) throws IOException {
-        String tokenValue = "",
-                reason = "";
+        String tokenValue = "";
         TokenOperationType tokenOperationType = null;
         boolean foundTokenValue = false,
-                foundTypeOfRevocation = false,
-                foundReason = false;
+                foundTypeOfOperation = false;
         try {
             reader.setLenient(false);
             reader.beginObject();
@@ -65,20 +64,16 @@ public class TokenExecuteActionTypeAdapter extends TypeAdapter<TokenExecuteActio
                             tokenOperationType = TokenOperationType.CheckState;
                             break;
                     }
-                    foundTypeOfRevocation = true;
-                } else if (fieldname.equals("Reason")) {
-                    reason = reader.nextString();
-                    foundReason = true;
+                    foundTypeOfOperation = true;
                 } else {
-                    throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
+                    throw new JsonSyntaxException("El fichero de entrada tiene algún problema de formato o de acceso.");
                 }
             }
         } catch (IllegalStateException | EOFException | MalformedJsonException e) {
-            throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
+            throw new JsonSyntaxException("El fichero de entrada tiene algún problema de formato o de acceso.");
         }
         if (!foundTokenValue
-                || !foundTypeOfRevocation
-                || !foundReason) {
+                || !foundTypeOfOperation) {
             throw new JsonSyntaxException("Error: invalid input data in JSON structure.");
         }
         reader.endObject();
@@ -98,10 +93,9 @@ public class TokenExecuteActionTypeAdapter extends TypeAdapter<TokenExecuteActio
      */
     @Override
     public void doConstraints(TokenExecuteAction tokenExecuteAction) {
-
         if (tokenExecuteAction.getTokenValue() == null
-                && tokenExecuteAction.getTokenOperationType() == null) {
-            throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
+                || tokenExecuteAction.getTokenOperationType() == null) {
+            throw new JsonSyntaxException("El fichero de entrada tiene algún problema de formato o de acceso.");
         }
 
     }

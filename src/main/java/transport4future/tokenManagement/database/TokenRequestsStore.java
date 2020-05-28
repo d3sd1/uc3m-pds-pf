@@ -129,6 +129,16 @@ public class TokenRequestsStore extends Database<TokenRequest> {
             throw new TokenManagementException("Error: Token Request Not Previously Registered");
         }
     }
+    /**
+     * Attempts to find any token on database.
+     *
+     * @param hexTokenRequest TokenRequest to find on database.
+     * @return Found token, either null.
+     */
+    public TokenRequest find(String hexTokenRequest) {
+        return inMemoryDb != null ? inMemoryDb.get(hexTokenRequest):null;
+    }
+
 
     /**
      * Prevents current object being cloned, so follow singleton pattern.

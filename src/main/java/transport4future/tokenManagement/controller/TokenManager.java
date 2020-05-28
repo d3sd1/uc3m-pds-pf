@@ -228,8 +228,6 @@ public class TokenManager implements TokenManagerInterface {
         }
 
         boolean isOperationValid = false;
-
-        //TODO: setDeviceType (ahora mismo no esta asignardo y es sioempre null)
         if (tokenFound.getDeviceType() == TokenDeviceType.Sensor
                 && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendInformationFromSensor) {
             isOperationValid = true;

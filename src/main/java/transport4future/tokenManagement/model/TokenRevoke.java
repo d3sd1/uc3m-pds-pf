@@ -4,9 +4,9 @@ package Transport4Future.TokenManagement.model;
  * The type Token revoke.
  */
 public class TokenRevoke {
-    private String tokenValue; //"";
-    private TokenRevokeType tokenRevokeType; //"T":"< | Final >";
-    private String reason; //"":"<Cadena de 100 caracteres como máximo >" }
+    private String tokenValue;
+    private TokenRevokeType tokenRevokeType;
+    private String reason;
 
     /**
      * Instantiates a new Token revoke.

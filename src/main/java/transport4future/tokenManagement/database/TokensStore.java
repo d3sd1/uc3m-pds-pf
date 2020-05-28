@@ -17,7 +17,10 @@ import Transport4Future.TokenManagement.config.Constants;
 import Transport4Future.TokenManagement.controller.TokenManager;
 import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.Token;
+import Transport4Future.TokenManagement.model.TokenDeviceType;
+import Transport4Future.TokenManagement.model.TokenType;
 import Transport4Future.TokenManagement.model.skeleton.Database;
+import Transport4Future.TokenManagement.model.typeadapter.TokenTypeAdapter;
 import Transport4Future.TokenManagement.service.FileManager;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -49,7 +52,6 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Init database requirements, and instantiate it.
-     *
      */
     @Override
     protected void initDatabase() {
@@ -77,12 +79,16 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Adds a token to database.
+     *
      * @param newToken Token to add to database.
      * @throws TokenManagementException If there was any issue on the add operation.
      */
     @Override
     public void add(Token newToken) throws TokenManagementException {
         if (this.find(newToken) == null) {
+            if (newToken.getDeviceType() == null) {
+                newToken.setDeviceType(TokenTypeAdapter.getTokenDeviceType(newToken.getTokenRequest()));
+            }
             inMemoryDb.add(newToken);
             this.save();
         }
@@ -90,13 +96,14 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Flush the database with current values.
+     *
      * @throws TokenManagementException If there was any issue flushing the database.
      */
     @Override
     protected void save() throws TokenManagementException {
         try {
             FileManager fileManager = new FileManager();
-            if(inMemoryDb != null) {
+            if (inMemoryDb != null) {
                 fileManager.writeObjectToJsonFile(Constants.TOKEN_STORAGE_FILE, inMemoryDb);
             }
         } catch (Exception e) {
@@ -112,6 +119,7 @@ public class TokensStore extends Database<Token> {
      */
     public Token find(Token tokenToFind) {
         Token result = null;
+        this.reload();
         for (Token token : inMemoryDb) {
             if (token.equals(tokenToFind)) {
                 result = token;
@@ -127,8 +135,9 @@ public class TokensStore extends Database<Token> {
     protected void reload() {
         FileManager fileManager = new FileManager();
         try {
-            List<Token> tokens = fileManager.readJsonFile(Constants.TOKEN_STORAGE_FILE, new TypeToken<List<Token>>(){}.getType());
-            if(tokens == null) {
+            List<Token> tokens = fileManager.readJsonFile(Constants.TOKEN_STORAGE_FILE, new TypeToken<List<Token>>() {
+            }.getType());
+            if (tokens == null) {
                 throw new JsonSyntaxException("No tokens previously stored");
             }
         } catch (Exception e) {
@@ -138,6 +147,7 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Prevents current object being cloned, so follow singleton pattern.
+     *
      * @return Never returns anything.
      * @throws CloneNotSupportedException Throwed always.
      */
