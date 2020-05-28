@@ -152,7 +152,6 @@ public class TokenManager implements TokenManagerInterface {
         try {
             decodedToken = tokenHasher.decode(base64EncodedToken);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
 

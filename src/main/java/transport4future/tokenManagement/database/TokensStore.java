@@ -60,7 +60,6 @@ public class TokensStore extends Database<Token> {
             fileManager.createJsonFileIfNotExists(Constants.TOKEN_STORAGE_FILE, new ArrayList<>());
             database.reload();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -107,7 +106,6 @@ public class TokensStore extends Database<Token> {
                 fileManager.writeObjectToJsonFile(Constants.TOKEN_STORAGE_FILE, inMemoryDb);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new TokenManagementException("Error: Unable to save a new token in the internal licenses store");
         }
     }

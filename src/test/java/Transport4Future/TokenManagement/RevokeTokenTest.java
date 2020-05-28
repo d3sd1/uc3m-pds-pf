@@ -78,6 +78,11 @@ class RevokeTokenTest {
         myManager.RequestToken(InputFile);
     }
 
+    /* Caso de Prueba: RT1
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Equivalencia
+     * Técnica de prueba: Clases de Equivalencia
+     * Resultado Esperado: autonomous@vehicle.com
+     */
     @Test
     @Order(1)
     @DisplayName("RF04 - RT1 - Caso válido (Revocación Temporal)")
@@ -89,6 +94,11 @@ class RevokeTokenTest {
         assertEquals("autonomous@vehicle.com", email);
     }
 
+    /* Caso de Prueba: RT2
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Equivalencia
+     * Técnica de prueba: Clases de Equivalencia
+     * Resultado Esperado: autonomous@vehicle.com
+     */
     @Test
     @Order(2)
     @DisplayName("RF04 - RT2 - Caso válido (Revocación Final)")
@@ -100,6 +110,11 @@ class RevokeTokenTest {
         assertEquals("autonomous@vehicle.com", email);
     }
 
+    /* Caso de Prueba: RT3
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
+     * Técnica de prueba: Valor Límite
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(3)
     @DisplayName("RF04 - RT3 - Token revocado de la misma manera (temporal)")
@@ -113,6 +128,11 @@ class RevokeTokenTest {
     }
 
 
+    /* Caso de Prueba: RT4
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
+     * Técnica de prueba: Valor Límite
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(4)
     @DisplayName("RF04 - RT4 - Token revocado de la misma manera (final)")
@@ -126,6 +146,11 @@ class RevokeTokenTest {
     }
 
 
+    /* Caso de Prueba: RT5
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
+     * Técnica de prueba: Valor Límite
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(5)
     @DisplayName("RF04 - RT5 - Token a revocar no existe")
@@ -138,6 +163,11 @@ class RevokeTokenTest {
         assertEquals ("El token que se quiere revocar no existe.",ex.getMessage());
     }
 
+    /* Caso de Prueba: RT6
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Equivalencia
+     * Técnica de prueba: Equivalencia
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(6)
     @DisplayName("RF04 - RT6 - Token a revocar existe pero está expirado")
@@ -152,6 +182,11 @@ class RevokeTokenTest {
     }
 
 
+    /* Caso de Prueba: RT7
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
+     * Técnica de prueba: Valor Límite
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(7)
     @DisplayName("RF04 - RT7 - Motivo de expiración del token demasiado largo")
@@ -167,6 +202,11 @@ class RevokeTokenTest {
     }
 
 
+    /* Caso de Prueba: RT8
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
+     * Técnica de prueba: Valor Límite
+     * Resultado Esperado: Excepción
+     */
     @Test
     @Order(8)
     @DisplayName("RF04 - RT8 - Tipo de revocación del token inválido")
@@ -179,6 +219,124 @@ class RevokeTokenTest {
             myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/InvalidTokenRevokeType.json");
         });
         assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+    }
+
+
+    /* Caso de Prueba: RT9
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(9)
+    @DisplayName("RF04 - RT9 - Sintáctico - sin Token Value")
+    void syntaxNoTokenValue() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/EstructuralNoTokenValue.json");
+        });
+        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+    }
+
+
+    /* Caso de Prueba: RT10
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(10)
+    @DisplayName("RF04 - RT10 - Sintáctico - sin Type Of Revocation")
+    void syntaxNoTypeOfRevocation() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/EstructuralNoTypeOfRevocation.json");
+        });
+        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+    }
+    /* Caso de Prueba: RT11
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(11)
+    @DisplayName("RF04 - RT11 - Sintáctico - sin motivo")
+    void syntaxNoReason() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/EstructuralNoReason.json");
+        });
+        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+    }
+
+
+    /* Caso de Prueba: RT12
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(12)
+    @DisplayName("RF04 - RT12 - Sintáctico - fichero no encontrado")
+    void syntaxFileNotFound() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/imlost");
+        });
+        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+    }
+
+
+    /* Caso de Prueba: RT13
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(13)
+    @DisplayName("RF04 - RT13 - Fichero JSON vacío")
+    void syntaxFileEmpty() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/Empty.json");
+        });
+        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+    }
+
+
+    /* Caso de Prueba: RT14
+     * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Arbol derivación
+     * Técnica de prueba: Análisis Sintáctico <- En este caso englobamos todos los errores de sintaxis ya que tendrían el mismo comportamiento.
+     * Resultado Esperado: Excepción
+     */
+    @Test
+    @Order(14)
+    @DisplayName("RF04 - RT14 - Fichero JSON sintaxis mala")
+    void syntaxWrong() throws TokenManagementException {
+        this.resetTokenStore();
+        this.insertFirstToken();
+        this.insertSecondToken();
+
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.RevokeToken(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/WrongSyntax.json");
+        });
+        assertEquals ("Error: JSON object cannot be created due to incorrect representation",ex.getMessage());
     }
 
 }

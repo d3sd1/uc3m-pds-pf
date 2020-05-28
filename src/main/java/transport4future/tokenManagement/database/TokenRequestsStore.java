@@ -57,7 +57,7 @@ public class TokenRequestsStore extends Database<TokenRequest> {
             FileManager fileManager = new FileManager();
             fileManager.createJsonFileIfNotExists(Constants.TOKEN_REQUEST_STORAGE_FILE, new HashMap<>());
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 
