@@ -161,24 +161,24 @@ public class TokenRequestTypeAdapter extends TypeAdapter<TokenRequest> implement
     /**
      * From object to json.
      * @param writer JsonWriter inhetired from Gson's TypeAdapter.
-     * @param obj T object
+     * @param tokenRequest T object
      * @throws IOException If there is any issue.
      */
     @Override
-    public void write(JsonWriter writer, TokenRequest obj) throws IOException {
+    public void write(JsonWriter writer, TokenRequest tokenRequest) throws IOException {
         writer.beginObject();
         writer.name("Device Name");
-        writer.value(token.getDeviceName());
+        writer.value(tokenRequest.getDeviceName());
         writer.name("Type of Device");
-        writer.value(token.getTypeOfDevice());
+        writer.value(tokenRequest.getTypeOfDevice());
         writer.name("Driver Version");
-        writer.value(token.getDriverVersion());
+        writer.value(tokenRequest.getDriverVersion());
         writer.name("Support e-mail");
-        writer.value(token.getSupportEMail());
+        writer.value(tokenRequest.getSupportEMail());
         writer.name("Serial Number");
-        writer.value(token.getSerialNumber());
+        writer.value(tokenRequest.getSerialNumber());
         writer.name("MAC Address");
-        writer.value(token.getMacAddress());
+        writer.value(tokenRequest.getMacAddress());
         writer.endObject();
     }
 }

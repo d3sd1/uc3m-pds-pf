@@ -8,6 +8,17 @@ public class TokenExecuteAction {
     private TokenOperationType tokenOperationType; // "Type of operation":"<Send Information from Sensor| Send Request to Actuator | Check State >"
 
     /**
+     * Instantiates a new Token execute action.
+     *
+     * @param tokenValue         the token value
+     * @param tokenOperationType the token operation type
+     */
+    public TokenExecuteAction(String tokenValue, TokenOperationType tokenOperationType) {
+        this.tokenValue = tokenValue;
+        this.tokenOperationType = tokenOperationType;
+    }
+
+    /**
      * Gets token value.
      *
      * @return the token value

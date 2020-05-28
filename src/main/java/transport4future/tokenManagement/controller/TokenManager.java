@@ -151,6 +151,7 @@ public class TokenManager implements TokenManagerInterface {
             e.printStackTrace();
             return false;
         }
+
         Token tokenFound = TokensStore.getInstance().find(decodedToken);
         if (tokenFound != null) {
             return tokenFound.isValid();
@@ -171,7 +172,6 @@ public class TokenManager implements TokenManagerInterface {
         TokenRevoke tokenRevoke;
         TokenCodificator tokenHasher = new TokenCodificator();
         Token decodedToken;
-        //TODO: el typeadapter!
         try {
             tokenRevoke = fileManager.readJsonFile(inputFile, TokenRevoke.class);
             decodedToken = tokenHasher.decode(tokenRevoke.getTokenValue());
@@ -207,7 +207,6 @@ public class TokenManager implements TokenManagerInterface {
         TokenExecuteAction tokenExecuteAction;
         TokenCodificator tokenHasher = new TokenCodificator();
         Token decodedToken;
-        //TODO: el tupeadapter!
         try {
             tokenExecuteAction = fileManager.readJsonFile(inputFile, TokenExecuteAction.class);
             decodedToken = tokenHasher.decode(tokenExecuteAction.getTokenValue());
