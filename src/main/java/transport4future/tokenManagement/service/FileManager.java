@@ -47,7 +47,6 @@ public class FileManager {
      *
      * @param filePath the file path
      * @param content  the content
-     * @return the string
      * @throws IOException the io exception
      */
     public void writeFile(String filePath, String content) throws IOException {
