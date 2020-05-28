@@ -61,8 +61,10 @@ public class TokensStore extends Database<Token> {
             e.printStackTrace();
         }
     }
+
     /**
      * This returns a singleton instance from TokenRequestsStore.
+     *
      * @return TokenManager singleton instance.
      */
     public static TokensStore getInstance() {
@@ -104,6 +106,7 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Attempts to find any token on database.
+     *
      * @param tokenToFind Token to find on database.
      * @return Found token, either null.
      */
@@ -119,7 +122,6 @@ public class TokensStore extends Database<Token> {
 
     /**
      * Refresh database.
-     * @throws TokenManagementException When there is any error related to that refresh.
      */
     @Override
     protected void reload() {

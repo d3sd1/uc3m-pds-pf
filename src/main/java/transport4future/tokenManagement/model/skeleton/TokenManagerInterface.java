@@ -49,16 +49,16 @@ public interface TokenManagerInterface {
     /**
      * Revoke token string.
      *
-     * @param String FilePath represents the path to the file including the input required for the functionality
+     * @param FilePath the file path
      * @return String represents the notification e-mail.
-     * @throws TTokenManagementException represents the possible error situations
+     * @throws TokenManagementException the token management exception
      */
     String RevokeToken (String FilePath) throws TokenManagementException;
 
     /**
      * Execute action on autonomous car given it's token.
      *
-     * @param String FilePath represents the path to the file including the input required for the functionality
+     * @param FilePath the file path
      * @return Boolean represents the success in the action execution
      * @throws TokenManagementException represents represents the possible error situations
      */

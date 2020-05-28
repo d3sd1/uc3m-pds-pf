@@ -241,10 +241,20 @@ public class Token {
         this.tokenRevokeReason = tokenRevokeReason;
     }
 
+    /**
+     * Gets device type.
+     *
+     * @return the device type
+     */
     public TokenDeviceType getDeviceType() {
         return deviceType;
     }
 
+    /**
+     * Sets device type.
+     *
+     * @param deviceType the device type
+     */
     public void setDeviceType(TokenDeviceType deviceType) {
         this.deviceType = deviceType;
     }

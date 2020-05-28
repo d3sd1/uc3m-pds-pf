@@ -8,6 +8,13 @@ public class TokenRevoke {
     private TokenRevokeType tokenRevokeType; //"T":"< | Final >";
     private String reason; //"":"<Cadena de 100 caracteres como máximo >" }
 
+    /**
+     * Instantiates a new Token revoke.
+     *
+     * @param tokenValue      the token value
+     * @param tokenRevokeType the token revoke type
+     * @param reason          the reason
+     */
     public TokenRevoke(String tokenValue, TokenRevokeType tokenRevokeType, String reason) {
         this.tokenValue = tokenValue;
         this.tokenRevokeType = tokenRevokeType;

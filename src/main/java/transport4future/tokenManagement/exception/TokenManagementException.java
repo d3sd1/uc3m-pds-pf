@@ -35,7 +35,7 @@ public class TokenManagementException extends Exception {
 
     /**
      *
-     * @return
+     * @return Message
      */
     public String getMessage() {
 

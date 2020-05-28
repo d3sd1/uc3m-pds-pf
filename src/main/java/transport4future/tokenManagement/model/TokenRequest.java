@@ -55,7 +55,6 @@ public class TokenRequest {
         this.supportEMail = supportEMail;
         this.serialNumber = serialNumber;
         this.macAddress = macAddress;
-        System.out.println(this.toString());
     }
 
     /**
