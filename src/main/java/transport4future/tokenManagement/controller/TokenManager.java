@@ -47,6 +47,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This returns a singleton instance from TokenManager.
+     *
      * @return TokenManager singleton instance.
      */
     public static TokenManager getInstance() {
@@ -58,6 +59,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This function requests a TokenRequest, that will be needed to operate with methods.
+     *
      * @param inputFile Input file path.
      * @return String with tokenRequest Hex.
      * @throws TokenManagementException Is thrown with a descriptive message.
@@ -96,6 +98,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This function requests a token based on previous TokenRequest operation.
+     *
      * @param inputFile Input file path.
      * @return String with hashed token.
      * @throws TokenManagementException Is thrown with a descriptive message.
@@ -136,6 +139,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This function verifies if a base64token is valid.
+     *
      * @param base64EncodedToken Base 64 encoded json token.
      * @return Boolean marking if the action was (or not) success.
      * @throws TokenManagementException Is thrown with a descriptive message.
@@ -147,7 +151,7 @@ public class TokenManager implements TokenManagerInterface {
         Token decodedToken;
         try {
             decodedToken = tokenHasher.decode(base64EncodedToken);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -161,6 +165,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This function revokes token access to a non-expired and non-revoked already token.
+     *
      * @param inputFile Input file path.
      * @return String with email of the token that was updated.
      * @throws TokenManagementException Is thrown with a descriptive message.
@@ -184,9 +189,9 @@ public class TokenManager implements TokenManagerInterface {
         Token tokenFound = TokensStore.getInstance().find(decodedToken);
         if (tokenFound == null) {
             throw new TokenManagementException("El token que se quiere revocar no existe.");
-        } else if(tokenFound.isExpired()) {
+        } else if (tokenFound.isExpired()) {
             throw new TokenManagementException("El token que se quiere revocar ya ha caducado.");
-        } else if(tokenRevoke.getTokenRevokeType() == decodedToken.getTokenRevokeType()) {
+        } else if (tokenRevoke.getTokenRevokeType() == decodedToken.getTokenRevokeType()) {
             throw new TokenManagementException("El token que se quiere revocar ya está revocado en la misma modalidad.");
         }
         decodedToken.setTokenRevokeType(tokenRevoke.getTokenRevokeType());
@@ -196,6 +201,7 @@ public class TokenManager implements TokenManagerInterface {
 
     /**
      * This function executes an action on a car given it's token.
+     *
      * @param inputFile Input file path.
      * @return Boolean marking if the action was (or not) success.
      * @throws TokenManagementException Is thrown with a descriptive message.
@@ -216,28 +222,34 @@ public class TokenManager implements TokenManagerInterface {
             throw new TokenManagementException(e.getMessage());
         }
 
-        boolean executedSuccess = false;
-
+        Token tokenFound = TokensStore.getInstance().find(decodedToken);
+        if (tokenFound == null || !tokenFound.isValid()) {
+            throw new TokenManagementException("El token que se quiere utilizar no existe o no es válido actualmente.");
+        }
 
         boolean isOperationValid = false;
 
-        String tokenType = "Sensor"; /// O Actuator //TODO
-        if(tokenType == "Sensor" && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendInformationFromSensor) {
+        if (tokenFound.getDeviceType() == TokenDeviceType.Sensor
+                && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendInformationFromSensor) {
             isOperationValid = true;
-        } else if(tokenType == "Actuator" && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendRequestToActuator) {
+        } else if (tokenFound.getDeviceType() == TokenDeviceType.Actuator
+                && tokenExecuteAction.getTokenOperationType() == TokenOperationType.SendRequestToActuator) {
             isOperationValid = true;
-        } else if((tokenType == "Actuator" || tokenType == "Sensor") && tokenExecuteAction.getTokenOperationType() == TokenOperationType.CheckState) {
+        } else if ((tokenFound.getDeviceType() == TokenDeviceType.Sensor
+                || tokenFound.getDeviceType() == TokenDeviceType.Actuator)
+                && tokenExecuteAction.getTokenOperationType() == TokenOperationType.CheckState) {
             isOperationValid = true;
         }
-        if(!isOperationValid) {
+        if (!isOperationValid) {
             throw new TokenManagementException("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.");
         }
 
-        return executedSuccess;
+        return isOperationValid;
     }
 
     /**
      * Prevents current object being cloned, so follow singleton pattern.
+     *
      * @return Never returns anything.
      * @throws CloneNotSupportedException Throwed always.
      */

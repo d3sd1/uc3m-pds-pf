@@ -26,6 +26,7 @@ import java.util.Objects;
 public class Token {
     private final TokenAlgorytm alg;
     private final TokenType typ;
+    private TokenDeviceType deviceType;
     private final long iat;
     private final long exp;
     private final String tokenRequest;
@@ -240,6 +241,14 @@ public class Token {
         this.tokenRevokeReason = tokenRevokeReason;
     }
 
+    public TokenDeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(TokenDeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -259,6 +268,7 @@ public class Token {
     public int hashCode() {
         return Objects.hash(alg, typ, iat, exp, getTokenRequest(), getRequestDate(), getNotificationEmail(), getSignature());
     }
+
 
     @Override
     public String toString() {
