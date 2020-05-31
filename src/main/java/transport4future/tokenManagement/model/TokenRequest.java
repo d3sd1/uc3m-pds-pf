@@ -14,7 +14,6 @@
 package Transport4Future.TokenManagement.model;
 
 import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import Transport4Future.TokenManagement.model.skeleton.Hasher;
 import Transport4Future.TokenManagement.service.Md5Hasher;
 

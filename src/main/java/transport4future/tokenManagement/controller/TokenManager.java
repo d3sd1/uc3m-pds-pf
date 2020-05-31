@@ -21,7 +21,6 @@ import Transport4Future.TokenManagement.model.skeleton.TokenManagerInterface;
 import Transport4Future.TokenManagement.service.FileManager;
 import Transport4Future.TokenManagement.service.TokenCodificator;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.MalformedJsonException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

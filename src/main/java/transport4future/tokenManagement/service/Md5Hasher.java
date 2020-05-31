@@ -13,7 +13,6 @@
 
 package Transport4Future.TokenManagement.service;
 
-import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import Transport4Future.TokenManagement.model.skeleton.Hasher;
 
 import java.math.BigInteger;

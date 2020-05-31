@@ -17,9 +17,6 @@ import Transport4Future.TokenManagement.config.Constants;
 import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.service.FileManager;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 /**
  * The type Database.
  *

@@ -14,7 +14,6 @@
 package Transport4Future.TokenManagement.database;
 
 import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.controller.TokenManager;
 import Transport4Future.TokenManagement.exception.TokenManagementException;
 import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.TokenRequest;

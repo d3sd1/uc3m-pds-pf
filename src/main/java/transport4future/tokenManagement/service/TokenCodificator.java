@@ -17,7 +17,6 @@ import Transport4Future.TokenManagement.model.Token;
 import Transport4Future.TokenManagement.model.skeleton.Codificator;
 import com.google.gson.Gson;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
