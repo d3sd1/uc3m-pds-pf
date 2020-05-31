@@ -11,10 +11,10 @@
  * All rights reserved.
  */
 
-package Transport4Future.TokenManagement.service;
+package transport4future.TokenManagement.service;
 
-import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.skeleton.Codificator;
+import transport4future.TokenManagement.model.Token;
+import transport4future.TokenManagement.model.skeleton.Codificator;
 import com.google.gson.Gson;
 
 import java.nio.charset.StandardCharsets;

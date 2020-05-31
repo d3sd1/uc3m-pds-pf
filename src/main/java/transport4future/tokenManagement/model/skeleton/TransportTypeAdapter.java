@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement.model.skeleton;
+package transport4future.TokenManagement.model.skeleton;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;

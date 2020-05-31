@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement.model;
+package transport4future.TokenManagement.model;
 
 /**
  * The enum Token operation type.

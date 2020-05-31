@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package Transport4Future;
+package transport4future;
 
 /**
  * This class would have the entrypoint for our app.

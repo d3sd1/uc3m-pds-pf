@@ -11,14 +11,14 @@
  * All rights reserved.
  */
 
-package Transport4Future.TokenManagement.database;
+package transport4future.TokenManagement.database;
 
-import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.exception.TokenManagementException;
-import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.skeleton.Database;
-import Transport4Future.TokenManagement.model.typeadapter.TokenTypeAdapter;
-import Transport4Future.TokenManagement.service.FileManager;
+import transport4future.TokenManagement.config.Constants;
+import transport4future.TokenManagement.exception.TokenManagementException;
+import transport4future.TokenManagement.model.Token;
+import transport4future.TokenManagement.model.skeleton.Database;
+import transport4future.TokenManagement.model.typeadapter.TokenTypeAdapter;
+import transport4future.TokenManagement.service.FileManager;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,14 +1,14 @@
-package Transport4Future.TokenManagement.service;
+package transport4future.TokenManagement.service;
 
-import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.TokenExecuteAction;
-import Transport4Future.TokenManagement.model.TokenRequest;
-import Transport4Future.TokenManagement.model.TokenRevoke;
-import Transport4Future.TokenManagement.model.typeadapter.TokenExecuteActionTypeAdapter;
-import Transport4Future.TokenManagement.model.typeadapter.TokenRequestTypeAdapter;
-import Transport4Future.TokenManagement.model.typeadapter.TokenRevokeTypeAdapter;
-import Transport4Future.TokenManagement.model.typeadapter.TokenTypeAdapter;
+import transport4future.TokenManagement.config.Constants;
+import transport4future.TokenManagement.model.Token;
+import transport4future.TokenManagement.model.TokenExecuteAction;
+import transport4future.TokenManagement.model.TokenRequest;
+import transport4future.TokenManagement.model.TokenRevoke;
+import transport4future.TokenManagement.model.typeadapter.TokenExecuteActionTypeAdapter;
+import transport4future.TokenManagement.model.typeadapter.TokenRequestTypeAdapter;
+import transport4future.TokenManagement.model.typeadapter.TokenRevokeTypeAdapter;
+import transport4future.TokenManagement.model.typeadapter.TokenTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

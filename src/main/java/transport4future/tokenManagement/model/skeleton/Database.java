@@ -11,11 +11,11 @@
  * All rights reserved.
  */
 
-package Transport4Future.TokenManagement.model.skeleton;
+package transport4future.TokenManagement.model.skeleton;
 
-import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.exception.TokenManagementException;
-import Transport4Future.TokenManagement.service.FileManager;
+import transport4future.TokenManagement.config.Constants;
+import transport4future.TokenManagement.exception.TokenManagementException;
+import transport4future.TokenManagement.service.FileManager;
 
 /**
  * The type Database.

@@ -11,11 +11,11 @@
  * All rights reserved.
  */
 
-package Transport4Future.TokenManagement.model;
+package transport4future.TokenManagement.model;
 
-import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.model.skeleton.Hasher;
-import Transport4Future.TokenManagement.service.Md5Hasher;
+import transport4future.TokenManagement.config.Constants;
+import transport4future.TokenManagement.model.skeleton.Hasher;
+import transport4future.TokenManagement.service.Md5Hasher;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;

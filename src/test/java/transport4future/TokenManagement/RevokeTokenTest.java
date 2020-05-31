@@ -1,12 +1,12 @@
-package Transport4Future.TokenManagement;
+package transport4future.TokenManagement;
 
-import Transport4Future.TokenManagement.config.Constants;
-import Transport4Future.TokenManagement.controller.TokenManager;
-import Transport4Future.TokenManagement.database.TokensStore;
-import Transport4Future.TokenManagement.exception.TokenManagementException;
-import Transport4Future.TokenManagement.model.Token;
-import Transport4Future.TokenManagement.model.TokenRevokeType;
-import Transport4Future.TokenManagement.service.TokenCodificator;
+import transport4future.TokenManagement.config.Constants;
+import transport4future.TokenManagement.controller.TokenManager;
+import transport4future.TokenManagement.database.TokensStore;
+import transport4future.TokenManagement.exception.TokenManagementException;
+import transport4future.TokenManagement.model.Token;
+import transport4future.TokenManagement.model.TokenRevokeType;
+import transport4future.TokenManagement.service.TokenCodificator;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.DisplayName;

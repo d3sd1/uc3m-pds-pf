@@ -1,10 +1,10 @@
-package Transport4Future.TokenManagement.model.typeadapter;
+package transport4future.TokenManagement.model.typeadapter;
 
-import Transport4Future.TokenManagement.config.RegexConstants;
-import Transport4Future.TokenManagement.model.TokenRequest;
-import Transport4Future.TokenManagement.model.skeleton.TransportTypeAdapter;
-import Transport4Future.TokenManagement.service.PatternChecker;
-import Transport4Future.TokenManagement.service.TypeChecker;
+import transport4future.TokenManagement.config.RegexConstants;
+import transport4future.TokenManagement.model.TokenRequest;
+import transport4future.TokenManagement.model.skeleton.TransportTypeAdapter;
+import transport4future.TokenManagement.service.PatternChecker;
+import transport4future.TokenManagement.service.TypeChecker;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

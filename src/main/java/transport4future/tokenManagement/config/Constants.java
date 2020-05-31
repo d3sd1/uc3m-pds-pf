@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package Transport4Future.TokenManagement.config;
+package transport4future.TokenManagement.config;
 
 /**
  * Constants that replace environment files, which are currently not supported on P4.
