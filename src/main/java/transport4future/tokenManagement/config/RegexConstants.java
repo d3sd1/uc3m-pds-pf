@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.config;
+package transport4future.tokenManagement.config;
 
 /**
  * Regex database. Stored as constants, but easy to refactor to fullfit another requirements if needed.

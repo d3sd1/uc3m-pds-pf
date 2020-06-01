@@ -1,4 +1,4 @@
-package transport4future.TokenManagement.model;
+package transport4future.tokenManagement.model;
 
 /**
  * The enum Token revoke type.

@@ -1,4 +1,4 @@
-package transport4future.TokenManagement.model.skeleton;
+package transport4future.tokenManagement.model.skeleton;
 
 import java.security.NoSuchAlgorithmException;
 

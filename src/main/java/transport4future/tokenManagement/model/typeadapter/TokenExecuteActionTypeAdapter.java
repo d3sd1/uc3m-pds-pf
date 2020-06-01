@@ -1,8 +1,8 @@
-package transport4future.TokenManagement.model.typeadapter;
+package transport4future.tokenManagement.model.typeadapter;
 
-import transport4future.TokenManagement.model.TokenExecuteAction;
-import transport4future.TokenManagement.model.TokenOperationType;
-import transport4future.TokenManagement.model.skeleton.TransportTypeAdapter;
+import transport4future.tokenManagement.model.TokenExecuteAction;
+import transport4future.tokenManagement.model.TokenOperationType;
+import transport4future.tokenManagement.model.skeleton.TransportTypeAdapter;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

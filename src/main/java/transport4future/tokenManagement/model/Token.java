@@ -11,9 +11,9 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.model;
+package transport4future.tokenManagement.model;
 
-import transport4future.TokenManagement.config.Constants;
+import transport4future.tokenManagement.config.Constants;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

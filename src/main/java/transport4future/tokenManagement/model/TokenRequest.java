@@ -11,11 +11,11 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.model;
+package transport4future.tokenManagement.model;
 
-import transport4future.TokenManagement.config.Constants;
-import transport4future.TokenManagement.model.skeleton.Hasher;
-import transport4future.TokenManagement.service.Md5Hasher;
+import transport4future.tokenManagement.config.Constants;
+import transport4future.tokenManagement.model.skeleton.Hasher;
+import transport4future.tokenManagement.service.Md5Hasher;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -116,7 +116,7 @@ public class TokenRequest {
      * @return the string
      */
     public String getHex() {
-        Hasher md5Hasher = new Md5Hasher();
+        Hasher<String> md5Hasher = new Md5Hasher();
         try {
             return md5Hasher.hex(md5Hasher.encode(
                     Constants.TOKEN_REQUEST_ENCODER_HEX

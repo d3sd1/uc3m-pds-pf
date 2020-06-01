@@ -1,13 +1,13 @@
-package transport4future.TokenManagement.model.typeadapter;
+package transport4future.tokenManagement.model.typeadapter;
 
-import transport4future.TokenManagement.config.RegexConstants;
-import transport4future.TokenManagement.database.TokenRequestsStore;
-import transport4future.TokenManagement.model.Token;
-import transport4future.TokenManagement.model.TokenDeviceType;
-import transport4future.TokenManagement.model.TokenRequest;
-import transport4future.TokenManagement.model.TokenRevokeType;
-import transport4future.TokenManagement.model.skeleton.TransportTypeAdapter;
-import transport4future.TokenManagement.service.PatternChecker;
+import transport4future.tokenManagement.config.RegexConstants;
+import transport4future.tokenManagement.database.TokenRequestsStore;
+import transport4future.tokenManagement.model.Token;
+import transport4future.tokenManagement.model.TokenDeviceType;
+import transport4future.tokenManagement.model.TokenRequest;
+import transport4future.tokenManagement.model.TokenRevokeType;
+import transport4future.tokenManagement.model.skeleton.TransportTypeAdapter;
+import transport4future.tokenManagement.service.PatternChecker;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -40,9 +40,7 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
                 revokeReason = "";
         boolean foundTokenRequest = false,
                 foundNotificationEmail = false,
-                foundRequestDate = false,
-                foundRevokeType = false,
-                foundRevokeReason = false;
+                foundRequestDate = false;
         try {
             reader.setLenient(false);
             reader.beginObject();
@@ -67,10 +65,8 @@ public class TokenTypeAdapter extends TypeAdapter<Token> implements TransportTyp
                     foundRequestDate = true;
                 } else if (fieldname.equals("Revoke Type")) {
                     revokeType = reader.nextString();
-                    foundRevokeType = true;
                 } else if (fieldname.equals("Revoke Reason")) {
                     revokeReason = reader.nextString();
-                    foundRevokeReason = true;
                 } else {
                     throw new JsonSyntaxException("Error: JSON object cannot be created due to incorrect representation");
                 }

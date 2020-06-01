@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.service;
+package transport4future.tokenManagement.service;
 
 import java.util.Arrays;
 import java.util.Optional;

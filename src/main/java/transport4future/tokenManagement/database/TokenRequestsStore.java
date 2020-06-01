@@ -11,14 +11,14 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.database;
+package transport4future.tokenManagement.database;
 
-import transport4future.TokenManagement.config.Constants;
-import transport4future.TokenManagement.exception.TokenManagementException;
-import transport4future.TokenManagement.model.Token;
-import transport4future.TokenManagement.model.TokenRequest;
-import transport4future.TokenManagement.model.skeleton.Database;
-import transport4future.TokenManagement.service.FileManager;
+import transport4future.tokenManagement.config.Constants;
+import transport4future.tokenManagement.exception.TokenManagementException;
+import transport4future.tokenManagement.model.Token;
+import transport4future.tokenManagement.model.TokenRequest;
+import transport4future.tokenManagement.model.skeleton.Database;
+import transport4future.tokenManagement.service.FileManager;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;

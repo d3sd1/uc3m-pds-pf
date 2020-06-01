@@ -1,8 +1,8 @@
 package transport4future.TokenManagement;
 
-import transport4future.TokenManagement.config.Constants;
-import transport4future.TokenManagement.controller.TokenManager;
-import transport4future.TokenManagement.exception.TokenManagementException;
+import transport4future.tokenManagement.config.Constants;
+import transport4future.tokenManagement.controller.TokenManager;
+import transport4future.tokenManagement.exception.TokenManagementException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;

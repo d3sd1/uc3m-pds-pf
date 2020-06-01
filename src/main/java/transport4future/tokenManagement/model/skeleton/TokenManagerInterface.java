@@ -11,8 +11,8 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.model.skeleton;
-import transport4future.TokenManagement.exception.TokenManagementException;
+package transport4future.tokenManagement.model.skeleton;
+import transport4future.tokenManagement.exception.TokenManagementException;
 
 /**
  * The interface Token manager.
