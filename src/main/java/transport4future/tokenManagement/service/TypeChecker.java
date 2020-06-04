@@ -1,4 +1,4 @@
-package transport4future.TokenManagement.service;
+package transport4future.tokenManagement.service;
 
 /**
  * Type checking required to strict JSON Gson deserialization.

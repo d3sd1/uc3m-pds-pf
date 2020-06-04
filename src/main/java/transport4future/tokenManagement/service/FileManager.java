@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.service;
+package transport4future.tokenManagement.service;
 
 import java.io.*;
 import java.lang.reflect.Type;

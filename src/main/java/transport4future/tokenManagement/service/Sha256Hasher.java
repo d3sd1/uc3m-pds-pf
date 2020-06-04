@@ -11,9 +11,9 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.service;
+package transport4future.tokenManagement.service;
 
-import transport4future.TokenManagement.model.skeleton.Hasher;
+import transport4future.tokenManagement.model.skeleton.Hasher;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

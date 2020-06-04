@@ -11,15 +11,15 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.controller;
+package transport4future.tokenManagement.controller;
 
-import transport4future.TokenManagement.database.TokenRequestsStore;
-import transport4future.TokenManagement.database.TokensStore;
-import transport4future.TokenManagement.exception.TokenManagementException;
-import transport4future.TokenManagement.model.*;
-import transport4future.TokenManagement.model.skeleton.TokenManagerInterface;
-import transport4future.TokenManagement.service.FileManager;
-import transport4future.TokenManagement.service.TokenCodificator;
+import transport4future.tokenManagement.database.TokenRequestsStore;
+import transport4future.tokenManagement.database.TokensStore;
+import transport4future.tokenManagement.exception.TokenManagementException;
+import transport4future.tokenManagement.model.*;
+import transport4future.tokenManagement.model.skeleton.TokenManagerInterface;
+import transport4future.tokenManagement.service.FileManager;
+import transport4future.tokenManagement.service.TokenCodificator;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.FileNotFoundException;

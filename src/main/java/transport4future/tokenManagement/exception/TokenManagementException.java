@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-package transport4future.TokenManagement.exception;
+package transport4future.tokenManagement.exception;
 
 /**
  * The type Token management exception.
