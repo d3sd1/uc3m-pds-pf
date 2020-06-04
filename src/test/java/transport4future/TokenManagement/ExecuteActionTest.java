@@ -13,6 +13,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests para ExecuteAction.
+ * Denotar que se guardan en tokenStore, pero se hace flush del contenido de dicho fichero al finalizar los test.
+ */
 class ExecuteActionTest {
 
     private final TokenManager myManager;
@@ -21,6 +25,9 @@ class ExecuteActionTest {
         myManager = TokenManager.getInstance();
     }
 
+    /**
+     * @throws TokenManagementException
+     */
     private void resetTokenStore() throws TokenManagementException {
         String storePath = Constants.TOKEN_STORAGE_FILE;
         FileWriter fileWriter;
@@ -32,13 +39,13 @@ class ExecuteActionTest {
         }
     }
 
-    private void insertFirstToken () throws TokenManagementException {
+    private void insertFirstToken() throws TokenManagementException {
         this.resetTokenStore();
         String InputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/CorrectTokenRequest.json";
         myManager.RequestToken(InputFile);
     }
 
-    private void insertSecondToken () throws TokenManagementException {
+    private void insertSecondToken() throws TokenManagementException {
         String InputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/SecondCorrectTokenRequest.json";
         myManager.RequestToken(InputFile);
     }
@@ -55,11 +62,12 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/SensorOpWithActuator.json");
         });
-        assertEquals ("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.",ex.getMessage());
+        assertEquals("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.", ex.getMessage());
     }
+
     /* Caso de Prueba: EA1-Sensor
      * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Equivalencia
      * Técnica de prueba: Clases de equivalencia
@@ -104,10 +112,10 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/SendRequestOpWithSensor.json");
         });
-        assertEquals ("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.",ex.getMessage());
+        assertEquals("La operación solicitada no puede ser realizada con el token adjuntado a la solicitud.", ex.getMessage());
     }
 
 
@@ -155,11 +163,12 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/InvalidCaseNoOp.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
+
     /* Caso de Prueba: EA5
      * Clase de Equivalencia, Valor Límite o Nodo del Árbol de Derivación Asociado: Valor límite
      * Técnica de prueba: Valor Límite
@@ -172,10 +181,10 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/InvalidCaseOpRandom.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 
     /* Caso de Prueba: EA6
@@ -190,10 +199,10 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/InvalidCaseNoTokenValue.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 
     /* Caso de Prueba: EA7
@@ -208,10 +217,10 @@ class ExecuteActionTest {
         this.resetTokenStore();
         this.insertFirstToken();
         this.insertSecondToken();
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/InvalidCaseNoTokenValue.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 
     /* Caso de Prueba: RT9
@@ -227,10 +236,10 @@ class ExecuteActionTest {
         this.insertFirstToken();
         this.insertSecondToken();
 
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/EstructuralNoTokenValue.json");
         });
-        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+        assertEquals("Error: invalid input data in JSON structure.", ex.getMessage());
     }
 
 
@@ -247,10 +256,10 @@ class ExecuteActionTest {
         this.insertFirstToken();
         this.insertSecondToken();
 
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenExecuteTest/EstructuralNoTypeOfOperation.json");
         });
-        assertEquals ("Error: invalid input data in JSON structure.",ex.getMessage());
+        assertEquals("Error: invalid input data in JSON structure.", ex.getMessage());
     }
 
     /* Caso de Prueba: RT12
@@ -266,10 +275,10 @@ class ExecuteActionTest {
         this.insertFirstToken();
         this.insertSecondToken();
 
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/imlost");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 
 
@@ -286,10 +295,10 @@ class ExecuteActionTest {
         this.insertFirstToken();
         this.insertSecondToken();
 
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/Empty.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 
 
@@ -306,9 +315,9 @@ class ExecuteActionTest {
         this.insertFirstToken();
         this.insertSecondToken();
 
-        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
             myManager.ExecuteAction(System.getProperty("user.dir") + "/TestData/TokenRevokeTest/WrongSyntax.json");
         });
-        assertEquals ("El fichero de entrada tiene algún problema de formato o de acceso.",ex.getMessage());
+        assertEquals("El fichero de entrada tiene algún problema de formato o de acceso.", ex.getMessage());
     }
 }

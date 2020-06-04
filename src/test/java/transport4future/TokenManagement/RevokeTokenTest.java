@@ -18,6 +18,10 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests para RevokeToken.
+ * Denotar que se guardan en tokenStore, pero se hace flush del contenido de dicho fichero al finalizar los test.
+ */
 class RevokeTokenTest {
     private final TokenManager myManager;
     private final TokensStore tokensStore;

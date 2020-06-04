@@ -160,7 +160,9 @@ public class Token {
      * @return the boolean
      */
     public boolean isValid() {
-        return (!this.isExpired()) && (this.isGranted());
+        return (!this.isExpired()) && (this.isGranted()) &&
+                (this.getTokenRevokeType() != TokenRevokeType.Final
+                || this.getTokenRevokeType() != TokenRevokeType.Temporal);
     }
 
     /**

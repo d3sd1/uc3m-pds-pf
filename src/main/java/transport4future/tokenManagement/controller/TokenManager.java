@@ -192,8 +192,14 @@ public class TokenManager implements TokenManagerInterface {
         } else if (tokenRevoke.getTokenRevokeType() == decodedToken.getTokenRevokeType()) {
             throw new TokenManagementException("El token que se quiere revocar ya está revocado en la misma modalidad.");
         }
+
         decodedToken.setTokenRevokeType(tokenRevoke.getTokenRevokeType());
         decodedToken.setTokenRevokeReason(tokenRevoke.getReason());
+
+
+        if(decodedToken.getTokenRevokeType() == TokenRevokeType.Final) {
+            TokensStore.getInstance().remove(tokenFound);
+        }
         return decodedToken.getNotificationEmail();
     }
 
@@ -221,7 +227,7 @@ public class TokenManager implements TokenManagerInterface {
         }
 
         Token tokenFound = TokensStore.getInstance().find(decodedToken);
-        if (tokenFound == null || !tokenFound.isValid()) {
+        if (tokenFound == null || !tokenFound.isValid() || tokenFound.isExpired()) {
             throw new TokenManagementException("El token que se quiere utilizar no existe o no es válido actualmente.");
         }
 

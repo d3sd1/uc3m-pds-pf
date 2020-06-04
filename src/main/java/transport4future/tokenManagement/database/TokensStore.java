@@ -124,6 +124,19 @@ public class TokensStore extends Database<Token> {
     }
 
     /**
+     * Attempts to find any token on database.
+     *
+     * @param tokenToFind Token to find on database.
+     * @return Found token, either null.
+     */
+    public boolean remove(Token tokenToFind) {
+        this.reload();
+        boolean removed = inMemoryDb.remove(tokenToFind);
+        this.reload();
+        return removed;
+    }
+
+    /**
      * Refresh database.
      */
     @Override
